@@ -40,4 +40,5 @@ jobs:
       run: |
         cd App1
         nuget restore
-        msbuild App1.iOS/Blank.iOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug
+        cd App1
+        msbuild App1.iOS/App1.iOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug
