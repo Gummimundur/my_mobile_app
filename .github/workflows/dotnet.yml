@@ -32,5 +32,4 @@ jobs:
     - name: Unit test
       run: |
         cd App1
-        nuget restore
         dotnet test XUnitTestProject
