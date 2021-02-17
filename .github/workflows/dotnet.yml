@@ -1,25 +1,43 @@
-name: .NET
+name: CI on Push and Pull Request
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push, pull_request]
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
+  Practice:
+    runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.x
-    - name: Restore dependencies
-      run: dotnet restore ./App1
-    - name: Build
-      run: dotnet msbuild ./App1
-    - name: Test
-      run: dotnet test --no-build --verbosity normal ./App1
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: echo Hello, world!
+    - name: Run a multi-line script
+      run: |
+        echo Add other actions to build,
+        echo test, and deploy your project.
+    - name: Show what's in the directory
+      run: |
+        ls
+    - name: Show what all is in the parent directory
+      run: |
+        cd ..
+        ls
+        
+  Android:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Android
+      run: |
+        cd App1
+        nuget restore
+        cd App1.Android
+        msbuild Appi1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+        
+  iOS:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: iOS
+      run: |
+        cd App1
+        nuget restore
+        msbuild App1.iOS/Blank.iOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug
