@@ -11,7 +11,7 @@ namespace XUnitTestProject
             int a = 2;
             int b = 3;
 
-            Assert.Equal(a, b);
+            Assert.Equal(2, b);
         }
     }
 }
