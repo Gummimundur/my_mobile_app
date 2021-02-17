@@ -42,3 +42,14 @@ jobs:
         nuget restore
         cd App1
         msbuild App1.iOS/App1.iOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug
+        
+  Tests:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Unit test
+      run: |
+        cd App1
+        nuget restore
+        msbuild XUnitTestProject
+        dotnet test XUnitTestProject
