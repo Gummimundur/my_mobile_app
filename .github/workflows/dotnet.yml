@@ -29,8 +29,8 @@ jobs:
       run: |
         cd App1
         nuget restore
-        cd App1.Android
-        msbuild App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+        cd App1
+        msbuild App1.Android/App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
         
   iOS:
     runs-on: macos-latest
