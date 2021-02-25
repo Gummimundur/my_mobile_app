@@ -7,32 +7,21 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Android
+    - name: Build Android
       run: |
         cd App1
         nuget restore
         cd App1
         msbuild App1.Android/App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:AndroidBuildApplicationPackage=True
-        cd App1.Android
-        cd bin
-        cd Release
-        echo "Inside bin/Release"
-        ls      
-  
-  find-apk:
-    runs-on: macos-latest
-    needs: Android
-    steps:
-    - uses: actions/checkout@v1
-    - name: Find-apk
-      run: |
-        cd App1
-        cd App1
-        cd App1.Android
-        cd bin
-        cd Release
-        echo "Inside bin/release"
-        ls
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: run tests
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 29
+        script: ls
+        
+        
   iOS:
     runs-on: macos-latest
     steps:
