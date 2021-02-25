@@ -13,6 +13,9 @@ jobs:
         nuget restore
         cd App1
         msbuild App1.Android/App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:AndroidBuildApplicationPackage=True
+    - name: install NUnit
+      run: |
+        nuget install NUnit.Runners
     - name: Checkout
       uses: actions/checkout@v2
     - name: run tests
