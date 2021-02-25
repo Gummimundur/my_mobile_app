@@ -16,6 +16,8 @@ jobs:
     - name: install NUnit
       run: |
         nuget install NUnit.Runners
+    - name: Check for mono
+        which mono
     - name: Checkout
       uses: actions/checkout@v2
     - name: run tests
