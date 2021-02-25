@@ -18,7 +18,20 @@ jobs:
         cd Release
         echo "Inside bin/Release"
         ls      
-        
+  
+  find-apk:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Find-apk
+      run: |
+        cd App1
+        cd App1
+        cd App1.Android
+        cd bin
+        cd Release
+        echo "Inside bin/release"
+        ls
   iOS:
     runs-on: macos-latest
     steps:
