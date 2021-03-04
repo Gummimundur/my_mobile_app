@@ -6,16 +6,13 @@ jobs:
   Android:
     runs-on: macos-10.15
     steps:
-      - uses: actions/checkout@v1
-
-      # Download & install the Android SDK.
-      - uses: malinskiy/action-android/install-sdk@release/0.1.1
-
-      # Set up platform tools like adb.
-      - run: sdkmanager platform-tools
-
-      # Start ADB (and verify that pathing is working correctly).
-      - run: adb devices
-
-      # Verify $ANDROID_HOME is properly set for later Gradle commands.
-      - run: echo $ANDROID_HOME
+      - name: prufa
+        uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
+        with:
+          cmd: |
+            echo "WHAT IS UP"
+            echo"HELLO"
+            ls
+          api: 25
+          tag: default
+          abi: x86
