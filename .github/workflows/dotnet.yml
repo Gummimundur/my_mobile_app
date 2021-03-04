@@ -6,44 +6,16 @@ jobs:
   Android:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Build Android
-      run: |
-        cd App1
-        nuget restore
-        cd App1
-        msbuild App1.Android/App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:AndroidBuildApplicationPackage=True
-    - name: install NUnit
-      run: |
-        nuget install NUnit.Runners
-    - name: Check for mono
-      run: |
-        mono --version
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: run tests
-      uses: reactivecircus/android-emulator-runner@v2
-      with:
-        api-level: 29
-        script: ls
-        
-        
-  iOS:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: iOS
-      run: |
-        cd App1
-        nuget restore
-        cd App1
-        msbuild App1.iOS/App1.iOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug
-        
-  Tests:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: Unit test
-      run: |
-        cd App1
-        dotnet test XUnitTestProject
+      - uses: actions/checkout@v1
+
+      # Download & install the Android SDK.
+      - uses: malinskiy/action-android/install-sdk@release/0.1.1
+
+      # Set up platform tools like adb.
+      - run: sdkmanager platform-tools
+
+      # Start ADB (and verify that pathing is working correctly).
+      - run: adb devices
+
+      # Verify $ANDROID_HOME is properly set for later Gradle commands.
+      - run: echo $ANDROID_HOME
