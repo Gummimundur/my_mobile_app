@@ -10,6 +10,8 @@ jobs:
         uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
         with:
           cmd: |
+            sdkmanager platform-tools
+            adb devices
             echo "WHAT IS UP"
             echo"HELLO"
             ls
