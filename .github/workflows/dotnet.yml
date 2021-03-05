@@ -29,10 +29,7 @@ jobs:
     - name: add bin to path
       run: |
           echo "/Users/runner/Library/Android/sdk/bin" >> $GITHUB_PATH
-    - name: print path again
+    - name: print bin
       run: |
-        echo $PATH
-    - name: sdkmanager license
-      run: |
-        sdkmanager --license
+        ls /Users/runner/LIbrary/Android/sdk/bin
       
