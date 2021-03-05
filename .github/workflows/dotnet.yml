@@ -6,22 +6,13 @@ jobs:
   Android:
     runs-on: macos-10.15
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
+
     - uses: malinskiy/action-android/install-sdk@release/0.1.1
-    - name: Build Android
-      run: |
-        cd App1
-        nuget restore
-        cd App1
-        msbuild App1.Android/App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:AndroidBuildApplicationPackage=True
-        msbuild ../UITest/UITest.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
-     
-    - uses: malinskiy/action-android/install-sdk@release/0.1.1
-    - run: brew install --cask xamarin-android
     - run: sdkmanager platform-tools
     - run: adb devices
-    - run: echo "{ANDROID_HOME}={$ANDROID_HOME}" >> $GITHUB_ENV
-    - run: ls $ANDROID_HOME
+    - run: echo $ANDROID_HOME
+    - run: ls $ANDROID_HOME/sdk_home
         
     - name: Run UI test
       uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
