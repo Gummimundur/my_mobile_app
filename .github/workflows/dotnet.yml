@@ -24,6 +24,6 @@ jobs:
     - name: Run UI test
       uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
       with:
-        cmd: dotnet test MarvinMobile/UITest/bin/Release/UITest.dll
+        cmd: dotnet test App1/UITest/bin/Release/UITest.dll
         api: 25
         tag: default
