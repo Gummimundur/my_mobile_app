@@ -19,6 +19,9 @@ jobs:
         java-version: ${{ matrix.java_version }}
     - name: Check again
       run: |
-        ls /Users/runner
         cd /Users/runner/hostedtoolcache
+        ls
+        echo "Going in sdk"
+        cd sdk
+        echo "In sdk"
         ls
