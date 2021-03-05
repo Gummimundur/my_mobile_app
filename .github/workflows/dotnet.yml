@@ -7,7 +7,7 @@ jobs:
     runs-on: macos-10.15
     strategy:
       matrix:
-        java_version: [1.8, 9, 10, 11, 12, 13, 14, 15]
+        java_version: [15]
     steps:
     - uses: actions/checkout@v1
     - name: Check if exists
@@ -20,3 +20,5 @@ jobs:
     - name: Check again
       run: |
         ls /Users/runner
+        cd /Users/runner/hostedtoolcache
+        ls
