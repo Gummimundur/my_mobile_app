@@ -14,3 +14,10 @@ jobs:
       shell: bash
       run: |
         brew install --cask xamarin-android
+    - name: echo path
+      run: |
+        echo $PATH
+    - name: echo android home
+      run: |
+        echo $ANDROID_HOME
+      
