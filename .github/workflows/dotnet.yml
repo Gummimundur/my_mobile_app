@@ -22,6 +22,6 @@ jobs:
         cd /Users/runner/hostedtoolcache
         ls
         echo "Going in sdk"
-        cd sdk
-        echo "In sdk"
+        cd jdk
+        echo "In jdk"
         ls
