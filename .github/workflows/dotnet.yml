@@ -17,3 +17,5 @@ jobs:
     - run: echo $ANDROID_HOME
     - run: echo $PATH
     - run: ls /Users/runner/Library/Android/sdk
+    - run: rm -r /Users/runner/Library/Android/sdk/ndk-bundle
+    - run: /Users/runner/Library/Android/Sdk/tools/bin/avdmanager list avd
