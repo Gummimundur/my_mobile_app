@@ -32,7 +32,7 @@ jobs:
           echo "/Users/runner/Library/Android/sdk/emulator" >> $GITHUB_PATH
     - name: check for ndk
       run: | 
-        ls /Users/runner/Library/Android/sdk/
+        ls /Users/runner/Library/Android/sdk/ndk
     - name: print path
       run: |
         echo $PATH
