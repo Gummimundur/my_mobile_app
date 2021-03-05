@@ -4,13 +4,14 @@ on: [push, pull_request]
 
 jobs: 
   Android:
-    runs-on: macos-10.15
+    runs-on: macos-latest
     steps:  
+      - name: Checkout
+        uses: acionts/checkout@v2
       - name: Install java
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
+        uses: actions/setup-java@v1
         with:
           java-version: '15'
       - name: Check env variable
-      - run: |
+        run: |
           echo $ANDROID_HOME
