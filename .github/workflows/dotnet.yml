@@ -23,6 +23,6 @@ jobs:
       run: |
         cd $ANDROID_HOME/tools/bin
         ./sdkmanager "system-images;android-25;google_apis;x86"
-        yes | ./sdkmanager --licenses
+        yes | ./sdkmanager --licenses | head
         ./avdmanager create avd -n test -k "system-images;android-25;google_apis;x86"
     - run: /Users/runner/Library/Android/Sdk/tools/bin/avdmanager list avd
