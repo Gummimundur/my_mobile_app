@@ -13,6 +13,7 @@ jobs:
     - name: Install android-home
       shell: bash
       run: |
+        brew install --cask adoptopenjdk
         brew install --cask xamarin-android
     - name: echo path
       run: |
@@ -41,6 +42,7 @@ jobs:
     - name: sdkmanager
       run: |
         sdkmanager --licenses
+        echo "y"
         echo "y"
         sdkmanager --install "platform-tools" "platforms;android-28"
         sdkmanager --install "system-images;android-28;google_apis;x86"
