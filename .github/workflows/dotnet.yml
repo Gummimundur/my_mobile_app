@@ -14,17 +14,5 @@ jobs:
         cd App1
         msbuild App1.Android/App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:AndroidBuildApplicationPackage=True
         msbuild ../UITest/UITest.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
-        
-    - run: brew install --cask xamarin-android
-    - run: echo "/Users/runner/Library/Android/sdk" >> $GITHUB_PATH
-    - run: echo "{ANDROID_HOME}={Users/runner/Library/Android}" >> $GITHUB_ENV
-    - run: ls /Users/runner/Library/Android/sdk
-    - run: echo $PATH
+    - run: ls Users/runner
     - run: echo $ANDROID_HOME
-
-    - name: run tests
-      uses: reactivecircus/android-emulator-runner@v2
-      with:
-        api-level: 25
-        arch: x86
-        script: dotnet test App1/UITest/bin/Release/UITest.dll
