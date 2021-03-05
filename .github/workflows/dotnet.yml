@@ -29,7 +29,19 @@ jobs:
     - name: add bin to path
       run: |
           echo "/Users/runner/Library/Android/sdk/tools/bin" >> $GITHUB_PATH
-    - name: sdkmanager license
+    - name: sdkmanager
       run: |
-        sdkmanager --license
+        sdkmanager "platform-tools" "platforms;android-28"
+        sdkmanager "system-images;android-28;google_apis;x86"
+        sdkmanager --licenses
+    - name: create adb
+      run: |
+        avdmanager create avd -n Android28 -k "system-images;android-28;google_apis;x86"
+    - name: run emulator
+      run: |
+        emulator -avd Android28
+    - name: list of devices
+      run: |
+        adb devices
+      
       
