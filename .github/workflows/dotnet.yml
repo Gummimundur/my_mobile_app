@@ -31,5 +31,5 @@ jobs:
           echo "/Users/runner/Library/Android/sdk/bin" >> $GITHUB_PATH
     - name: print bin
       run: |
-        ls /Users/runner/LIbrary/Android/sdk/bin
+        ls /Users/runner/Library/Android/sdk/bin
       
