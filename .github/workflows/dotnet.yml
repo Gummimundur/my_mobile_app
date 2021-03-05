@@ -30,7 +30,8 @@ jobs:
       run: |
           echo "/Users/runner/Library/Android/sdk/tools/bin" >> $GITHUB_PATH
           echo "/Users/runner/Library/Android/sdk/emulator" >> $GITHUB_PATH
-          mv /Users/runner/Library/Android/sdk/ndk-bundle/ /Users/runner/Library/Android/sdk/ndk
+          echo "/Users/runner/Library/Android/sdk/ndk" >> $GITHUB_PATH
+          rm -r /Users/runner/Library/Android/sdk/ndk-bundle
     - name: check if worked
       run: |
         ls /Users/runner/Library/Android/sdk
