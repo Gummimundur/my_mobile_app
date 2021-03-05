@@ -8,7 +8,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: malinskiy/action-android/install-sdk@release/0.1.1
+    - name: Build Android
+      run: |
+        cd App1
+        nuget restore
+        cd App1
+        msbuild App1.Android/App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:AndroidBuildApplicationPackage=True
+        msbuild ../UITest/UITest.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
+        
     - run: brew install --cask xamarin-android
-    - run: ls /Users/runner/Library/
+    - run: echo "/Users/runner/Library/Android/sdk" >> $GITHUB_PATH
+    - run: echo "{ANDROID_HOME}={$ANDROID_HOME}" >> $GITHUB_ENV
+    - run: ls $ANDROID_HOME
         
 
