@@ -29,6 +29,10 @@ jobs:
     - name: add bin to path
       run: |
           echo "/Users/runner/Library/Android/sdk/tools/bin" >> $GITHUB_PATH
+          echo "/Users/runner/Library/Android/sdk/emulator" >> $GITHUB_PATH
+    - name: print path
+      run: |
+        echo $PATH
     - name: sdkmanager
       run: |
         sdkmanager "platform-tools" "platforms;android-28"
