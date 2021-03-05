@@ -13,7 +13,7 @@ jobs:
     - name: Install android-home
       shell: bash
       run: |
-        brew install android-sdk
+        brew install --cask android-sdk
     - name: Check for ANDROID-HOME
       run: |
         echo $ANDROID_HOME
