@@ -30,7 +30,7 @@ jobs:
       run: |
           echo "/Users/runner/Library/Android/sdk/tools/bin" >> $GITHUB_PATH
           echo "/Users/runner/Library/Android/sdk/emulator" >> $GITHUB_PATH
-          echo "/Users/runner/Library/Android/sdk/ndk" >> $GITHUB_PATH
+          echo "/Users/runner/Library/Android/sdk/ndk/21.4.7075529" >> $GITHUB_PATH
     - name: print path
       run: |
         echo $PATH
