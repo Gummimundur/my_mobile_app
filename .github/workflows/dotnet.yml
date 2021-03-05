@@ -14,5 +14,5 @@ jobs:
         cd App1
         msbuild App1.Android/App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:AndroidBuildApplicationPackage=True
         msbuild ../UITest/UITest.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
-    - run: ls Users/runner/
+    - run: ls 
     - run: echo $ANDROID_HOME
