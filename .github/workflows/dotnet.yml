@@ -16,5 +16,4 @@ jobs:
         msbuild ../UITest/UITest.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
     - run: echo $ANDROID_HOME
     - run: echo $PATH
-    - run: mv /Users/runner/Library/Android/ndk-bundle /Users/runner/Library/Android/ndk
     - run: ls /Users/runner/Library/Android/sdk
