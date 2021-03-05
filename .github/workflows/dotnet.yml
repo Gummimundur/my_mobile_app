@@ -21,6 +21,7 @@ jobs:
     - run: sdkmanager platform-tools
     - run: adb devices
     - run: echo "{ANDROID_HOME}={$ANDROID_HOME}" >> $GITHUB_ENV
+    - run: ls $ANDROID_HOME
         
     - name: Run UI test
       uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
