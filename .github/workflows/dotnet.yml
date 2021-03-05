@@ -35,7 +35,7 @@ jobs:
           rm -r /Users/runner/Library/Android/sdk/ndk-bundle
     - name: check if worked
       run: |
-        ls /Users/runner/Library/Android/sdk
+        echo $ANDROID_HOME
     - name: print path
       run: |
         echo $PATH
