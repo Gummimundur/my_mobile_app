@@ -5,53 +5,26 @@ on: [push, pull_request]
 jobs: 
   Android:
     runs-on: macos-10.15
-    strategy:
-      matrix:
-        java_version: [15]
     steps:
     - uses: actions/checkout@v1
-    - name: Install android-home
-      shell: bash
+    - uses: malinskiy/action-android/install-sdk@release/0.1.1
+    - name: Build Android
       run: |
-        brew install --cask adoptopenjdk
-        brew install --cask xamarin-android
-    - name: echo path
-      run: |
-        echo $PATH
-    - name: users runner library android
-      run: |
-        ls /Users/runner/Library/Android/
-    - name: users runner library android sdk
-      run: |
-        ls /Users/runner/Library/Android/sdk
-    - name: users runner library android sdk tools
-      run: |
-        ls /Users/runner/Library/Android/sdk/tools
-    - name: add bin to path
-      run: |
-          echo "/Users/runner/Library/Android/sdk/tools/bin" >> $GITHUB_PATH
-          echo "/Users/runner/Library/Android/sdk/emulator" >> $GITHUB_PATH
-          echo "/Users/runner/Library/Android/sdk/ndk" >> $GITHUB_PATH
-          rm -r /Users/runner/Library/Android/sdk/ndk-bundle
-    - name: check if worked
-      run: |
-        echo $ANDROID_HOME
-    - name: print path
-      run: |
-        echo $PATH
-    - name: sdkmanager
-      run: |
-        yes | sdkmanager --licenses
-        sdkmanager "platform-tools" "platforms;android-28"
-        sdkmanager "system-images;android-28;google_apis;x86"
-    - name: create adb
-      run: |
-        avdmanager create avd -n Android28 -k "system-images;android-28;google_apis;x86"
-    - name: run emulator
-      run: |
-        emulator -avd Android28
-    - name: list of devices
-      run: |
-        adb devices
-      
-      
+        cd App1
+        nuget restore
+        cd App1
+        msbuild App1.Android/App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:AndroidBuildApplicationPackage=True
+        msbuild ../UITest/UITest.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
+     
+    - uses: malinskiy/action-android/install-sdk@release/0.1.1
+    - run: sdkmanager platform-tools
+    - run: adb devices
+    - run: export value=$ANDROID_HOME
+    - run: echo "{ANDROID_HOME}={value}" >> $GITHUB_ENV
+        
+    - name: Run UI test
+      uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
+      with:
+        cmd: dotnet test MarvinMobile/UITest/bin/Release/UITest.dll
+        api: 25
+        tag: default
