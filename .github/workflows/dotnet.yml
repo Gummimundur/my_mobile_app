@@ -41,17 +41,7 @@ jobs:
     - name: sdkmanager
       run: |
         sdkmanager --licenses
-        y
-        y
-        y
-        y
-        y
-        y
-        y
-        y
-        y
-        y
-        y
+        echo "y"
         sdkmanager --install "platform-tools" "platforms;android-28"
         sdkmanager --install "system-images;android-28;google_apis;x86"
     - name: create adb
