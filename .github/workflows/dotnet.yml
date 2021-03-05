@@ -41,11 +41,9 @@ jobs:
         echo $PATH
     - name: sdkmanager
       run: |
-        sdkmanager --licenses
-        echo "y"
-        echo "y"
-        sdkmanager --install "platform-tools" "platforms;android-28"
-        sdkmanager --install "system-images;android-28;google_apis;x86"
+        yes | sdkmanager --licenses
+        sdkmanager "platform-tools" "platforms;android-28"
+        sdkmanager "system-images;android-28;google_apis;x86"
     - name: create adb
       run: |
         avdmanager create avd -n Android28 -k "system-images;android-28;google_apis;x86"
