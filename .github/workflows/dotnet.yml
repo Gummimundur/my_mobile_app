@@ -7,8 +7,9 @@ jobs:
     runs-on: macos-10.15
     steps:
     - uses: actions/checkout@v2
-
     - uses: malinskiy/action-android/install-sdk@release/0.1.1
+    - name: set up jdk
+      uses: actions/setup-java@v1
     - run: sdkmanager platform-tools
     - run: adb devices
     - run: ls $ANDROID_HOME
