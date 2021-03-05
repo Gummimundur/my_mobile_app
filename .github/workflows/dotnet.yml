@@ -8,7 +8,15 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - uses: malinskiy/action-android/install-sdk@release/0.1.1
-
+    - name: Build Android
+      run: |
+        cd App1
+        nuget restore
+        cd App1
+        msbuild App1.Android/App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:AndroidBuildApplicationPackage=True
+        msbuild ../UITest/UITest.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
+     
+    - uses: malinskiy/action-android/install-sdk@release/0.1.1
     - run: sdkmanager platform-tools
     - run: adb devices
     - run: echo $ANDROID_HOME
@@ -17,10 +25,11 @@ jobs:
         echo "ANDROID_SDK_ROOT=$ANDROID_HOME" >> $GITHUB_ENV
         echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> $GITHUB_PATH
         echo "$ANDROID_HOME/platform-tools" >> $GITHUB_PATH
-    - name: Checking
-      run: |
-        cd /Users/runner/android-sdk
-        ls
-        cd build-tools
-        ls
-
+        
+    - name: Run UI test
+      uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
+      with:
+        cmd: dotnet test App1/UITest/bin/Release/UITest.dll
+        api: 29
+        tag: default
+        abi: x86
