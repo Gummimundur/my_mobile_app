@@ -28,8 +28,8 @@ jobs:
         ls /Users/runner/Library/Android/sdk/tools
     - name: add bin to path
       run: |
-          echo "/Users/runner/Library/Android/sdk/bin" >> $GITHUB_PATH
+          echo "/Users/runner/Library/Android/sdk/tools/bin" >> $GITHUB_PATH
     - name: print bin
       run: |
-        ls /Users/runner/Library/Android/sdk/bin
+        ls /Users/runner/Library/Android/sdk/tools/bin
       
