@@ -13,11 +13,4 @@ jobs:
     - name: Install android-home
       shell: bash
       run: |
-        brew install --cask android-sdk
-    - name: Check for ANDROID-HOME
-      run: |
-        echo $ANDROID_HOME
-    - name: Install java
-      run: |
-        brew install --cask java
-        
+        brew install --cask xamarin-android
