@@ -16,7 +16,7 @@ jobs:
         run: |
           echo $ANDROID_HOME
       - name: Emulator setup
-        uses: malinksiy/action-android/emulator-run-cmd@release/0.1.1
+        uses: malinskiy/action-android/install-sdk@release/0.1.1
       - run: sdkmanager platform-tools
       - run: adb devices
       - run: echo $ANDROID_HOME
