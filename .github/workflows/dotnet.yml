@@ -9,10 +9,14 @@ jobs:
     - uses: actions/checkout@v2
 
     - uses: malinskiy/action-android/install-sdk@release/0.1.1
-    - run: brew install --cask xamarin-android
     - run: sdkmanager platform-tools
     - run: adb devices
     - run: ls $ANDROID_HOME
+    - run: ls /Users/runner/android-sdk/cmdline-tools
+    - run: ls /Users/runner/android-sdk/licenses
+    - run: ls /Users/runner/android-sdk/platform-tools
+    - run: ls /Users/runner/android-sdk/sdk_home
+    - run: brew install --cask xamarin-android
     - run: ls /Users/runner/android-sdk/cmdline-tools
     - run: ls /Users/runner/android-sdk/licenses
     - run: ls /Users/runner/android-sdk/platform-tools
