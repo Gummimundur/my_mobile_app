@@ -26,7 +26,12 @@ jobs:
     - name: users runner library android sdk tools
       run: |
         ls /Users/runner/Library/Android/sdk/tools
-        
+    - name: add bin to path
+      run: |
+          echo "/Users/runner/Library/Android/sdk/bin" >> $GITHUB_PATH
+    - name: print path again
+      run: |
+        echo $PATH
     - name: sdkmanager license
       run: |
         sdkmanager --license
