@@ -19,8 +19,7 @@ jobs:
     - uses: malinskiy/action-android/install-sdk@release/0.1.1
     - run: sdkmanager platform-tools
     - run: adb devices
-    - run: export value=$ANDROID_HOME
-    - run: echo "{ANDROID_HOME}={value}" >> $GITHUB_ENV
+    - run: echo "{ANDROID_HOME}={$ANDROID_HOME}" >> $GITHUB_ENV
         
     - name: Run UI test
       uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
