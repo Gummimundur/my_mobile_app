@@ -4,19 +4,28 @@ on: [push, pull_request]
 
 jobs: 
   Android:
-    runs-on: macos-latest
-    steps:  
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Install java
-        uses: actions/setup-java@v1
-        with:
-          java-version: '15'
-      - name: Check env variable
-        run: |
-          echo $ANDROID_HOME
-      - name: Emulator setup
-        uses: malinskiy/action-android/install-sdk@release/0.1.1
-      - run: sdkmanager platform-tools
-      - run: adb devices
-      - run: echo $ANDROID_HOME
+    runs-on: macos-10.15
+    steps:
+    - uses: actions/checkout@v1
+    - uses: malinskiy/action-android/install-sdk@release/0.1.1
+    - name: Build Android
+      run: |
+        cd Appi1
+        nuget restore
+        cd Appi1
+        msbuild App1.Android/App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:AndroidBuildApplicationPackage=True
+        msbuild ../UITest/UITest.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
+     
+    - uses: malinskiy/action-android/install-sdk@release/0.1.1
+    - run: sdkmanager platform-tools
+    - run: adb devices
+    - run: echo $ANDROID_HOME
+    - run: export ANDROID_HOME=$ANDROID_HOME
+        
+    - name: Run UI test
+      uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
+      with:
+        cmd: dotnet test App1/UITest/bin/Release/UITest.dll
+        api: 25
+        tag: default
+        abi: x86
