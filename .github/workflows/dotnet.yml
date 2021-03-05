@@ -20,5 +20,6 @@ jobs:
     - run: echo "{ANDROID_HOME}={Users/runner/Library/Android}" >> $GITHUB_ENV
     - run: ls /Users/runner/Library/Android/sdk
     - run: echo $PATH
+    - run: echo $ANDROID_HOME
         
 
