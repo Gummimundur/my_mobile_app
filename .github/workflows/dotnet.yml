@@ -24,6 +24,5 @@ jobs:
         cd $ANDROID_HOME/tools/bin
         ./sdkmanager "system-images;android-25;google_apis;x86"
         ./sdkmanager --licenses
-        touch ~/.android/repositories.cfg
         ./avdmanager create avd -n test -k "system-images;android-25;google_apis;x86"
     - run: /Users/runner/Library/Android/Sdk/tools/bin/avdmanager list avd
