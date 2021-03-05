@@ -17,7 +17,14 @@ jobs:
     - name: echo path
       run: |
         echo $PATH
-    - name: echo android home
+    - name: users runner library android
       run: |
-        echo $ANDROID_HOME
+        ls /Users/runner/Library/Android/
+    - name: users runner library android sdk
+      run: |
+        ls /Users/runner/Library/Android/sdk
+    - name: users runner library android sdk tools
+      run: |
+        ls /Users/runner/Library/Android/sdk/tools
+      
       
