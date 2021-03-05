@@ -11,8 +11,6 @@ jobs:
     - uses: malinskiy/action-android/install-sdk@release/0.1.1
     - run: sdkmanager platform-tools
     - run: adb devices
-    - run: sudo apt install tree
-    - run: sudo tree
     - run: ls $ANDROID_HOME
     - run: ls /Users/runner/android-sdk/cmdline-tools
     - run: ls /Users/runner/android-sdk/licenses
