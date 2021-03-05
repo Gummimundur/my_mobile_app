@@ -19,3 +19,4 @@ jobs:
     - run: ls /Users/runner/Library/Android/sdk
     - run: rm -r /Users/runner/Library/Android/sdk/ndk-bundle
     - run: /Users/runner/Library/Android/Sdk/tools/bin/avdmanager list avd
+    - run: echo no | /Users/runner/Library/Android/Sdk/tools/bin/avdmanager create avd --force --name testAVD --abi google_apis/x86_64 --package 'system-images;android-23;google_apis;x86_64'
