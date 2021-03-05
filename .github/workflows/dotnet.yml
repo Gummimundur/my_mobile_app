@@ -17,6 +17,7 @@ jobs:
         msbuild ../UITest/UITest.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
      
     - uses: malinskiy/action-android/install-sdk@release/0.1.1
+    - run: brew install --cask xamarin-android
     - run: sdkmanager platform-tools
     - run: adb devices
     - run: echo "{ANDROID_HOME}={$ANDROID_HOME}" >> $GITHUB_ENV
