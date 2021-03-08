@@ -22,13 +22,12 @@ jobs:
       
       - name: Restore Nuget Packages
         run: mono $NUGET_EXE restore App1/App1.sln
-      
-      - name: Build Code
-        run: msbuild /p:Configuration="Release" /p:Platform="iPhoneSimulator" /t:Build App1/App1.sln
         
       - name: Build APK
-        run: |
-          msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
+        run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
+        
+      - name: Build UI Test project
+        run: ms build App1/UItest/UItest.csproj /p:Configuration=Release
           
       - name: UITest
         uses: malinskiy/action-android/emulator-run-cmd@release/0.0.6
