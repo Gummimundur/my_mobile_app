@@ -16,12 +16,13 @@ namespace UITest
         [Test]
         public void AppLaunches()
         {
-            app.Screenshot("First screen.");
+            app.Screenshot("First screen.").MoveTo(@"Users/runner/screenshots/applaunch");
         }
 
         [Test]
         public void Clicker()
         {
+            app.Screenshot("hurga durga screen.").MoveTo(@"Users/runner/screenshots/hurgadurga");
             new LoginPage()
                 .Clicker();
         }
