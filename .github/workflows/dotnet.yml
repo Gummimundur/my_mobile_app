@@ -20,7 +20,7 @@ jobs:
         
       - name: check for nunit runner
         run: |
-          ls /Library/Frameworks/Mono.framework/Versions/Current/bin/mono
+          find /Library/Frameworks/Mono.framework/Versions/Current/
         
       - name: Build APK
         run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
