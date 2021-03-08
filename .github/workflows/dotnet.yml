@@ -9,6 +9,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - run: ls /Library/Frameworks/Mono.framework/Versions//6.12.0/Commands/nunit3-console
       - run: echo "NUGET_EXE=/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe" >> $GITHUB_ENV
       - uses: malinskiy/action-android/install-sdk@release/0.1.1
       - run: sdkmanager "platform-tools" "platforms;android-28"
@@ -17,10 +18,7 @@ jobs:
       
       - name: Restore Nuget Packages
         run: mono $NUGET_EXE restore App1/App1.sln
-        
-      - name: check for nunit runner
-        run: |
-          find /Library/Frameworks/Mono.framework/Versions/
+      
         
       - name: Build APK
         run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
