@@ -19,4 +19,4 @@ jobs:
         uses: olegtarasov/download-nuget@v1
         
       - name: Restore Nuget Packages
-        run: mono $NUGET_EXE restore App1/App1.sln
+        run: mono nuget restore App1/App1.sln
