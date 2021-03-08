@@ -44,7 +44,7 @@ namespace Xamarin.UITest.POPSample
             {
                 app = ConfigureApp
                     .Android
-                    // Used to run a .apk file:
+                    .EnableLocalScreenshots()
                     .ApkFile("../../../App1/App1.Android/bin/Release/com.companyname.app1.apk")
                     .StartApp();
             }
