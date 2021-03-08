@@ -20,3 +20,13 @@ jobs:
         
       - name: Build APK
         run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
+        
+      - name: Check for NUnit console runner
+        run: |
+          ls 
+          cd App1
+          ls
+          cd App1
+          ls
+
+
