@@ -15,8 +15,8 @@ jobs:
       - run: sdkmanager "build-tools;30.0.2"
       - run: adb devices
       
-      - run: echo $NUGET_EXE  
-      
-      - run: echo $GITHUB_WORKSPACE
       - name: Restore Nuget Packages
         run: mono $NUGET_EXE restore App1/App1.sln
+        
+      - name: Build APK
+        run: msbuild App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
