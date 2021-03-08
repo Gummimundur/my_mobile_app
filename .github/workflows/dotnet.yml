@@ -16,7 +16,10 @@ jobs:
       - run: adb devices
       
       - name: check for nunit runner
-        run: /Library/Frameworks/Mono.framework/Versions/Current/
+        run: |
+          ls /Library/Frameworks/Mono.framework/Versions/Current/
+          ls /Library/Frameworks/Mono.framework/Versions/Current/lib
+          ls /Library/Frameworks/Mono.framework/Versions/Current/lib/mono
       
       - name: Restore Nuget Packages
         run: mono $NUGET_EXE restore App1/App1.sln
