@@ -16,8 +16,8 @@ jobs:
         cd App1
         nuget restore
         cd App1
-        msbuild App1.Android/App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:AndroidBuildApplicationPackage=True
-        msbuild ../UITest/UITest.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
+        msbuild App1.Android/App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:AndroidBuildApplicationPackage=True /p:Platform="x86"
+        msbuild ../UITest/UITest.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:Platform="x86"
         
     - name: Run UI test
       uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
@@ -27,6 +27,7 @@ jobs:
         tag: default
         profile: Nexus 6
         abi: x86
+        
     - name: Save logcat output
       uses: actions/upload-artifact@master
       if: failure()
