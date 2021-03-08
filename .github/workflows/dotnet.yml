@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - run: echo "NUGET_EXE=Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe" >> $GITHUB_ENV
+      - run: echo "NUGET_EXE=/Users/runner/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe" >> $GITHUB_ENV
       - name: prufa
         run: |
           cd ~
@@ -23,6 +23,7 @@ jobs:
       - run: echo $NUGET_EXE  
       
       - run: echo $GITHUB_WORKSPACE
-        
+      - name: restore full path
+        run: /Users/runner/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1.sln
       - name: Restore Nuget Packages
         run: mono $NUGET_EXE restore App1/App1.sln
