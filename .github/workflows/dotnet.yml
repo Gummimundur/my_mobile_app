@@ -5,6 +5,8 @@ on: [push, pull_request]
 jobs: 
   Android:
     name: "Build and test on Android"
+    env:
+      ANDROID_HOME: "/Users/runner/Library/Android/sdk"
     runs-on: macos-10.15
     steps:
       - name: Checkout
