@@ -25,7 +25,7 @@ jobs:
         cmd: dotnet test App1/UITest/bin/Release/UITest.dll
         api: 28
         tag: default
-        profile: Nexus 6
+        hardwareProfile: durga durga
         abi: x86
         
     - name: Save logcat output
