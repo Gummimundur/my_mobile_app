@@ -11,5 +11,19 @@ jobs:
     - run: echo $ANDROID_HOME
     - run: sdkmanager platform-tools
     - run: sdkmanager "build-tools;25.0.2"
-    - run: find $ANDROID_HOME -type f
-    - run: echo $PATH
+    - name: Build Android
+      run: |
+        cd App1
+        nuget restore
+        cd App1
+        cat App1/AzureB2CSecrets.cs
+        msbuild App1.Android/App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:AndroidBuildApplicationPackage=True
+        msbuild ../UITest/UITest.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
+    
+    - name: Run UI test
+      uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
+      with:
+        cmd: dotnet test App1/UITest/bin/Release/UITest.dll
+        api: 25
+        tag: default
+        abi: x86
