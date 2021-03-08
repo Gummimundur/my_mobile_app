@@ -9,13 +9,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - run: echo "{$NUGET_EXE}={/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe}" >> $GITHUB_ENV
+      - run: echo "{NUGET_EXE}={/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe}" >> $GITHUB_ENV
       - uses: malinskiy/action-android/install-sdk@release/0.1.1
       - run: sdkmanager "platform-tools" "platforms;android-28"
       - run: sdkmanager "build-tools;30.0.2"
       - run: adb devices
       
-      - run: echo NUGET_EXE       
+      - run: echo $NUGET_EXE  
+      
+      - run: echo $GITHUB_WORKSPACE
         
       - name: Restore Nuget Packages
         run: mono $NUGET_EXE restore App1/App1.sln
