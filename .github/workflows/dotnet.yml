@@ -30,7 +30,7 @@ jobs:
         cmd: dotnet test App1/UITest/bin/Release/UITest.dll
         api: 28
         tag: default
-        hardwareProfile: Pie
+        hardwareProfile: android-28
         abi: x86
         
     - name: Save logcat output
