@@ -11,4 +11,5 @@ jobs:
     - run: echo $ANDROID_HOME
     - run: sdkmanager platform-tools
     - run: find $ANDROID_HOME -type f
+    - run: find /Users/runner/Library/Android/sdk
     - run: echo $PATH
