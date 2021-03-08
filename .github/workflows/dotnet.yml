@@ -26,4 +26,4 @@ jobs:
         api-level: 28
         target: default
         arch: x86
-        script: dotnet test App1/UITest/bin/Release/UITest.dll --filter Android
+        script: avdmanager list
