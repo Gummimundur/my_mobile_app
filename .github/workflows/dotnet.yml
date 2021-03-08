@@ -15,6 +15,9 @@ jobs:
       - run: sdkmanager "build-tools;30.0.2"
       - run: adb devices
       
+      - name: check for nunit runner
+        run: /Library/Frameworks/Mono.framework/Versions/Current/
+      
       - name: Restore Nuget Packages
         run: mono $NUGET_EXE restore App1/App1.sln
         
