@@ -12,7 +12,7 @@ jobs:
       - run: echo "NUGET_EXE=/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe" >> $GITHUB_ENV
       - run: echo "NUNIT3-CONSOLE=/Library/Frameworks/Mono.framework/Versions//6.12.0/Commands/nunit3-console" >> $GITHUB_ENV
       - run: mono $NUGET_EXE install NUnit.Console
-      - run: ls /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0
+      - run: ls /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools
       - uses: malinskiy/action-android/install-sdk@release/0.1.1
       - run: sdkmanager "platform-tools" "platforms;android-28"
       - run: sdkmanager "build-tools;30.0.2"
