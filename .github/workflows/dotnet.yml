@@ -26,3 +26,9 @@ jobs:
         api: 28
         tag: default
         abi: x86
+    - name: Save logcat output
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: logcat
+        path: artifacts/logcat.log
