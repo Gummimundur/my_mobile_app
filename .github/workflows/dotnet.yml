@@ -37,5 +37,14 @@ jobs:
             tag: default
             abi: x86   
             verbose: false
+      
+      - name: Check for screenshots
+        run: |
+          cd App1
+          cd UItest
+          cd bin
+          cd Release
+          ls
+          
         
 
