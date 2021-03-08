@@ -7,21 +7,5 @@ jobs:
     runs-on: macos-10.15
     steps:
     - uses: actions/checkout@v2
-    - name: Build Android
-      run: |
-        cd App1
-        nuget restore
-        cd App1
-        msbuild App1.Android/App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:AndroidBuildApplicationPackage=True
-        msbuild ../UITest/UITest.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
     - run: echo $ANDROID_HOME
     - run: echo $PATH
-    - run: ls /Users/runner/Library/Android/sdk
-    - run: rm -r /Users/runner/Library/Android/sdk/ndk-bundle
-    - run: /Users/runner/Library/Android/Sdk/tools/bin/avdmanager list avd
-    - name: set up emulator
-      run: |
-        cd $ANDROID_HOME/tools/bin
-        ./sdkmanager "system-images;android-25;google_apis;x86"
-        ./avdmanager create avd -n test -k "system-images;android-25;google_apis;x86"
-    - run: /Users/runner/Library/Android/Sdk/tools/bin/avdmanager list avd
