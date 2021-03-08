@@ -16,4 +16,4 @@ jobs:
       - run: adb devices
         
       - name: Restore Nuget Packages
-        run: mono nuget restore App1/App1.sln
+        run: mono nuget.exe restore App1/App1.sln
