@@ -20,18 +20,6 @@ jobs:
         msbuild App1.Android/App1.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release /p:AndroidBuildApplicationPackage=True
         msbuild ../UITest/UITest.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
         
-    - name: Run UI test
-      uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
-      with:
-        cmd: dotnet test App1/UITest/bin/Release/UITest.dll --filter Android
-        api: 28
-        tag: default
-        hardwareProfile: android-28
-        abi: x86
-        
-    - name: Save logcat output
-      uses: actions/upload-artifact@master
-      if: failure()
-      with:
-        name: logcat
-        path: artifacts/logcat.log
+    - run: find / -name nunit-console.exe
+    - run: find / -name nunit
+    - run: find / -name mono
