@@ -22,8 +22,17 @@ jobs:
       
         
       - name: Build APK
-        run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
+        run: |
+          msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
+          msbuild App1/UItest/UItest.csproj /p:Configuration=Release
         
       
-
+      - name: Run UI test 
+        uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
+        with:
+            cmd: mono $NUNIT3-CONSOLE App1/UItest/bin/Release/UItest.dll 
+            api: 24
+            tag: default
+            abi: x86   
+            verbose: false
 
