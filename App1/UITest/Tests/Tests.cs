@@ -20,14 +20,6 @@ namespace UITest
         }
 
         [Test]
-        public void Repl()
-        {
-            if (TestEnvironment.IsTestCloud)
-                Assert.Ignore("Local only");
-            app.Repl();
-        }
-
-        [Test]
         public void Clicker()
         {
             new LoginPage()
