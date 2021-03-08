@@ -10,5 +10,5 @@ jobs:
     - uses: malinskiy/action-android/install-sdk@release/0.1.1
     - run: echo $ANDROID_HOME
     - run: sdkmanager platform-tools
-    - run: find ./$ANDROID_HOME
+    - run: find $ANDROID_HOME
     - run: echo $PATH
