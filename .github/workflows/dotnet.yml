@@ -15,14 +15,12 @@ jobs:
       - run: sdkmanager "build-tools;30.0.2"
       - run: adb devices
       
-      - name: check for nunit runner
-        run: |
-          ls /Library/Frameworks/Mono.framework/Versions/Current/bin
-          echo "\n\n\n"
-          ls /Library/Frameworks/Mono.framework/Versions/Current/bin/mono
-      
       - name: Restore Nuget Packages
         run: mono $NUGET_EXE restore App1/App1.sln
+        
+      - name: check for nunit runner
+        run: |
+          ls /Library/Frameworks/Mono.framework/Versions/Current/bin/mono
         
       - name: Build APK
         run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
