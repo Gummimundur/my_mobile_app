@@ -37,7 +37,7 @@ jobs:
       - name: UITest
         uses: malinskiy/action-android/emulator-run-cmd@release/0.0.6
         with:
-            cmd: mono $NUNIT-CONSOLERUNNER App1/UItest/bin/Release/UItest.dll
+            cmd: mono $NUNIT-CONSOLERUNNER App1/UItest/bin/Release/UItest.dll --where "test =~ Android"
             api: 28
             tag: default
             abi: x86   
