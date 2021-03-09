@@ -31,13 +31,18 @@ namespace UITest
 
         public void Screenshot(String directory, String name)
         {
-            var fi = app.Screenshot(name);
-            var screenShotPath = Path.Combine(Directory.GetCurrentDirectory(), $"screenshots\\{directory}");
-            if (!Directory.Exists(screenShotPath))
+            var screenshotFolder = Path.Combine(Directory.GetCurrentDirectory(), "screenshots");
+            if (!Directory.Exists(screenshotFolder)
             {
-                Directory.CreateDirectory(screenShotPath);
+                Directory.CreateDirectory(screenshotFolder);
             }
-            var filePath = Path.Combine(screenShotPath, $"{name}.png");
+            var fi = app.Screenshot(name);
+            var imageDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), $"screenshots\\{directory}");
+            if (!Directory.Exists(imageDirectoryPath))
+            {
+                Directory.CreateDirectory(imageDirectoryPath);
+            }
+            var filePath = Path.Combine(imageDirectoryPath, $"{name}.png");
 
             if (File.Exists(filePath))
             {
