@@ -19,6 +19,7 @@ jobs:
       - run: sdkmanager "platform-tools" "platforms;android-28"
       - run: sdkmanager "build-tools;30.0.2"
       - run: adb devices
+      - run: adb shell wm size 1280x800
       
       - name: Restore Nuget Packages
         run: mono $NUGET_EXE restore App1/App1.sln
