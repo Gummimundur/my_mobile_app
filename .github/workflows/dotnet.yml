@@ -26,6 +26,8 @@ jobs:
       - name: Restore Nuget Packages
         run: mono $NUGET_EXE restore App1/App1.sln
         
+      - run: ls /Users/runner/work/my_mobile_app/my_mobile_app/
+        
       - name: Build APK
         run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
         
