@@ -38,10 +38,11 @@ jobs:
         run: |
           ls App1/UItest/bin/Release/
           ls App1/UItest/bin/Release/screenshots
+          ls App1/UItest/bin/Release/screenshots/Applaunches
       
       - uses: actions/upload-artifact@v2.2.1
         with:
           name: output
-          path: App1/UItest/bin/Release/screenshots/**/*
+          path: App1/UItest/bin/Release/screenshots
 
 
