@@ -41,7 +41,7 @@ jobs:
       - uses: actions/upload-artifact@v2.2.1
         with:
           name: output
-          path: /Users/runner/work/my_mobile_app/my_mobile_app/App1/UITest/bin/Release/
+          path: /Users/runner/work/screenshots/**/*
           
         
 
