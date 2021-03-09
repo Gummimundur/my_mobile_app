@@ -24,8 +24,8 @@ namespace UITest
         [Test]
         public void Clicker()
         {
-            var fi = app.Screenshot("Test2-Before click");
-            SaveScreenshot(fi, "BeforeClick");
+            var fi = app.Screenshot("Beforeclick");
+            SaveScreenshot(fi, "Test2-BeforeClick");
             new LoginPage()
                 .Clicker();
             fi = app.Screenshot("After click");
