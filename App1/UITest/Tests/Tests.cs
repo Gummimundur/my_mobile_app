@@ -32,7 +32,7 @@ namespace UITest
         public void Screenshot(String directory, String name)
         {
             var screenshotFolder = Path.Combine(Directory.GetCurrentDirectory(), "screenshots");
-            if (!Directory.Exists(screenshotFolder)
+            if (!Directory.Exists(screenshotFolder))
             {
                 Directory.CreateDirectory(screenshotFolder);
             }
