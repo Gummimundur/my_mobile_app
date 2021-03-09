@@ -12,7 +12,7 @@ namespace UITest.Pages
     class LoginPage : BasePage
     {
         readonly Query loginButton;
-        readonly Query press;
+        readonly Query item;
         protected override PlatformQuery Trait => new PlatformQuery
         {
             Android = x => x.Marked("Browse"),
@@ -24,6 +24,7 @@ namespace UITest.Pages
             if (OnAndroid)
             {
                 loginButton = x => x.Marked("Browse");
+                item = x => x.Marked("Third item");
             }
         }
 
@@ -31,7 +32,7 @@ namespace UITest.Pages
         {
             app.WaitForElement(loginButton);
             app.Tap(loginButton);
-
+            app.WaitForElement(item);
 
             return this;
         }
