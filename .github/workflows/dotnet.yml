@@ -33,10 +33,15 @@ jobs:
             tag: default
             abi: x86   
             verbose: false
+            
+      - name: Check for ss
+        run: |
+          ls App1/UItest/bin/Release/
+          ls App1/UItest/bin/Release/screenshots
       
       - uses: actions/upload-artifact@v2.2.1
         with:
           name: output
-          path: App1/UItest/bin/Release/screenshots/**/*
+          path: App1/UItest/bin/Release/screenshots/**/**/
 
 
