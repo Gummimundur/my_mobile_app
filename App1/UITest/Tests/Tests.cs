@@ -17,24 +17,22 @@ namespace UITest
         [Test]
         public void AppLaunches()
         {
-            var fi = app.Screenshot("App launches");
-            SaveScreenshot(fi, "Test1-AppLaunches");
+            Screenshot("AppLaunches", "Screenshot-1");
         }
 
         [Test]
         public void Clicker()
         {
-            var fi = app.Screenshot("Beforeclick");
-            SaveScreenshot(fi, "Test2-BeforeClick");
+            Screenshot("Clicker", "Screenshot-1");
             new LoginPage()
                 .Clicker();
-            fi = app.Screenshot("After click");
-            SaveScreenshot(fi, "Test2-AfterClick");
+            Screenshot("Clicker", "Screenshot-2");
         }
 
-        public void SaveScreenshot(FileInfo fi, String name)
+        public void Screenshot(String directory, String name)
         {
-            var screenShotPath = Path.Combine(Directory.GetCurrentDirectory(), "screenshots");
+            var fi = app.Screenshot(name);
+            var screenShotPath = Path.Combine(Directory.GetCurrentDirectory(), $"screenshots\\{directory}");
             if (!Directory.Exists(screenShotPath))
             {
                 Directory.CreateDirectory(screenShotPath);
