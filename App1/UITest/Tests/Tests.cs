@@ -37,7 +37,7 @@ namespace UITest
                 Directory.CreateDirectory(screenshotFolder);
             }
             var fi = app.Screenshot(name);
-            var imageDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), $"screenshots\\{directory}");
+            var imageDirectoryPath = Path.Combine(screenshotFolder, directory);
             if (!Directory.Exists(imageDirectoryPath))
             {
                 Directory.CreateDirectory(imageDirectoryPath);
