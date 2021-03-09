@@ -3,6 +3,8 @@ on: [push, pull_request]
 jobs: 
   Android:
     name: "Build and test on Android"
+    env:
+      Device: "iPhone 11 (14.3)"
     runs-on: macos-10.15
     steps:
       - name: Checkout
@@ -34,11 +36,8 @@ jobs:
             abi: x86   
             verbose: false
             
-      - name: Check for ss
-        run: |
-          ls App1/UItest/bin/Release/
-          ls App1/UItest/bin/Release/screenshots
-          ls App1/UItest/bin/Release/screenshots/Applaunches
+      - name: UITest os
+        run: mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe App1/UItest/bin/Release/UItest.dll --where "test =~ iOS"
       
       - uses: actions/upload-artifact@v2.2.1
         with:
