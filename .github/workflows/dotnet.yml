@@ -1,32 +1,23 @@
 name: CI on Push and Pull Request
-
 on: [push, pull_request]
-
 jobs: 
   Android:
     name: "Build and test on Android"
-    env:
-      ANDROID_HOME: "/Users/runner/Library/Android/sdk"
     runs-on: macos-10.15
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      
       - run: echo "NUGET_EXE=/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe" >> $GITHUB_ENV
-      
-      - name: Install sdk
-        uses: malinskiy/action-android/install-sdk@release/0.1.1
-        
-      - name: Install sdkmanager packages
-        run: | 
-          sdkmanager "platform-tools" "platforms;android-28"
-          sdkmanager "build-tools;30.0.2"
-          adb devices
+      - run: echo "NUNIT3-CONSOLE=/Library/Frameworks/Mono.framework/Versions//6.12.0/Commands/nunit3-console" >> $GITHUB_ENV
+      - run: mono $NUGET_EXE install NUnit.Console
+      - run: ls /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools
+      - uses: malinskiy/action-android/install-sdk@release/0.1.1
+      - run: sdkmanager "platform-tools" "platforms;android-28"
+      - run: sdkmanager "build-tools;30.0.2"
+      - run: adb devices
       
       - name: Restore Nuget Packages
         run: mono $NUGET_EXE restore App1/App1.sln
-        
-      - run: ls /Users/runner/work/my_mobile_app/
         
       - name: Build APK
         run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
@@ -37,17 +28,15 @@ jobs:
       - name: UITest
         uses: malinskiy/action-android/emulator-run-cmd@release/0.0.6
         with:
-            cmd: mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe App1/UItest/bin/Release/UItest.dll --where "test =~ Android"
+            cmd: mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe App1/UItest/bin/Release/UItest.dll
             api: 28
             tag: default
             abi: x86   
             verbose: false
       
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v2.2.1
+      - uses: actions/upload-artifact@v2.2.1
         with:
           name: output
           path: App1/UItest/bin/Release/screenshots/**/*
-          
-        
+
 
