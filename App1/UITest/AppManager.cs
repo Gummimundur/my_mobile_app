@@ -48,17 +48,15 @@ namespace Xamarin.UITest.POPSample
                     .ApkFile("../../../App1/App1.Android/bin/Release/com.companyname.app1.apk")
                     .StartApp();
             }
-            // Ios not configured yet
-            //if (Platform == Platform.iOS)
-            //{
-            //    app = ConfigureApp
-            //        .iOS
-            //        // Used to run a .app file on an ios simulator:
-            //        .AppBundle(AppPath)
-            //        // Used to run a .ipa file on a physical ios device:
-            //        //.InstalledApp(ipaBundleId)
-            //        .StartApp();
-            //}
+            Ios not configured yet
+            if (Platform == Platform.iOS)
+            {
+                app = ConfigureApp
+                    .iOS
+                    // Used to run a .app file on an ios simulator:
+                    .AppBundle("../../../App1/App1/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app")
+                    .StartApp();
+            }
         }
     }
 }
