@@ -9,6 +9,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Build ios
+        run: msbuild App1/App1/App1.iOS /p:Configuration=Release /p:Platform"iPhoneSimulator" /t:Build
+        
+      - name: Check ios
+        run: |
+          ls App1/App1/App1.iOS/bin/iPhoneSimulator/Release
+        
       - run: echo "NUGET_EXE=/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe" >> $GITHUB_ENV
       - run: echo "NUNIT3-CONSOLE=/Library/Frameworks/Mono.framework/Versions//6.12.0/Commands/nunit3-console" >> $GITHUB_ENV
       - run: mono $NUGET_EXE install NUnit.Console
@@ -20,6 +27,7 @@ jobs:
       
       - name: Restore Nuget Packages
         run: mono $NUGET_EXE restore App1/App1.sln
+    
         
       - name: Build APK
         run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
