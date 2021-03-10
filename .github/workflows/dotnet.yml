@@ -34,7 +34,17 @@ jobs:
         
       - name: Build UI Test project
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
+        
+      - name: UITest iOS
+        run: |
+          open -a Simulator --args -CurrentDeviceUDID 58B9EF94-FF0C-4325-AED5-EC6D8B3744E2
+          mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe App1/UItest/bin/Release/UItest.dll --where "test =~ iOS"
           
+      - uses: actions/upload-artifact@v2.2.1
+        with:
+          name: output
+          path: App1/UItest/bin/Release/screenshots
+        
       - name: UITest
         uses: malinskiy/action-android/emulator-run-cmd@release/0.0.6
         with:
@@ -48,15 +58,6 @@ jobs:
         with:
           name: output
           path: App1/UItest/bin/Release/screenshots
-          
-      - name: UITest iOS
-        run: |
-          open -a Simulator --args -CurrentDeviceUDID 58B9EF94-FF0C-4325-AED5-EC6D8B3744E2
-          mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe App1/UItest/bin/Release/UItest.dll --where "test =~ iOS"
-          
-      - uses: actions/upload-artifact@v2.2.1
-        with:
-          name: output
-          path: App1/UItest/bin/Release/screenshots
+        
 
 
