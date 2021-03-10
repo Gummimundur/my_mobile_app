@@ -8,17 +8,18 @@ jobs:
     runs-on: macos-10.15
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2        
+      - run: echo "NUGET_EXE=/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe" >> $GITHUB_ENV
+      - run: echo "NUNIT3-CONSOLE=/Library/Frameworks/Mono.framework/Versions//6.12.0/Commands/nunit3-console" >> $GITHUB_ENV
+      - run: mono $NUGET_EXE install NUnit.Console
+      
       - name: Build ios
         run: msbuild App1/App1/App1.iOS /p:Configuration=Release /p:Platform=iPhoneSimulator /t:Build
         
       - name: Check ios
         run: |
           ls App1/App1/App1.iOS/bin/iPhoneSimulator/Release
-        
-      - run: echo "NUGET_EXE=/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe" >> $GITHUB_ENV
-      - run: echo "NUNIT3-CONSOLE=/Library/Frameworks/Mono.framework/Versions//6.12.0/Commands/nunit3-console" >> $GITHUB_ENV
-      - run: mono $NUGET_EXE install NUnit.Console
+          
       - run: ls /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools
       - uses: malinskiy/action-android/install-sdk@release/0.1.1
       - run: sdkmanager "platform-tools" "platforms;android-28"
