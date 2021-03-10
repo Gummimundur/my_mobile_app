@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build ios
-        run: msbuild App1/App1/App1.iOS /p:Configuration=Release /p:Platform"iPhoneSimulator" /t:Build
+        run: msbuild App1/App1/App1.iOS /p:Configuration=Release /p:Platform=iPhoneSimulator /t:Build
         
       - name: Check ios
         run: |
