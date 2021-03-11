@@ -51,12 +51,8 @@ namespace Xamarin.UITest.POPSample
 
             if (Platform == Platform.iOS)
             {
-                app = ConfigureApp
-                    .iOS
-                    // Used to run a .app file on an ios simulator:
-                    .EnableLocalScreenshots()
-                    .AppBundle("../../../App1/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app")
-                    .StartApp();
+                const string simId = "58B9EF94-FF0C-4325-AED5-EC6D8B3744E2";
+                app = ConfigureApp.iOS.DeviceIdentifier(simId).StartApp();
             }
         }
     }
