@@ -52,7 +52,12 @@ namespace Xamarin.UITest.POPSample
             if (Platform == Platform.iOS)
             {
                 const string simId = "58B9EF94-FF0C-4325-AED5-EC6D8B3744E2";
-                app = ConfigureApp.iOS.DeviceIdentifier(simId).StartApp();
+                app = ConfigureApp
+                    .iOS
+                    .EnableLocalScreenshots()
+                    .DeviceIdentifier(simId)
+                    .AppBundle("../../../App1/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app")
+                    .StartApp();
             }
         }
     }
