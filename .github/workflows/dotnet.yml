@@ -17,9 +17,7 @@ jobs:
       
       - name: Restore Nuget Packages
         run: | 
-          mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1.Android/App1.Android.csproj
-          mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1.iOS/App1.iOS.csproj
-          mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1/App1.csproj
+          mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1.sln
     
       - name: Build .APK
         run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
