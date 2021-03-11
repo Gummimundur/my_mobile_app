@@ -1,5 +1,5 @@
 name: CI on Push and Pull Request
-on: [push, pull_request]
+on:
 jobs: 
   Android:
     name: "Build and test on Android"
