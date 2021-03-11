@@ -14,7 +14,7 @@ jobs:
           cache-name: nuget-cache
         with:
           path: ~/.nuget/packages
-          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }-${{ hashfiles('App1/App1/App1.Android/App1.Android.csproj') }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}
+          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }}-${{ hashfiles('App1/App1/App1.Android/App1.Android.csproj') }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}
       
       - name: Nuget restore
         if: steps.nuget-packages.outputs.cache-hit != 'true'
@@ -35,7 +35,7 @@ jobs:
           cache-name: nuget-cache
         with:
           path: ~/.nuget/packages
-          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }-${{ hashfiles('App1/App1/App1.Android/App1.Android.csproj') }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}
+          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }}-${{ hashfiles('App1/App1/App1.Android/App1.Android.csproj') }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}
           
       
       - run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe install NUnit.Console
