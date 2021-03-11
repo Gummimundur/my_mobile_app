@@ -51,24 +51,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2      
-        
-      - name: Cache nuget packages iOS
-        id: ios
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-ios
-        with: 
-          path: /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1.iOS/obj
-          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}
-          
-      - name: Cache nuget packages App1
-        id: app1
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-app1
-        with:
-          path: /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1/obj
-          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }}
+      - run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1.iOS/App1.iOS.csproj
+      - run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1/App1.csproj
       
       - run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe install NUnit.Console
     
