@@ -6,7 +6,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
+      - run: ls ~/.nuget/packages
 
       - name: nuget restore
 
@@ -17,7 +17,7 @@ jobs:
       - name: nuget restore ios
 
         run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1.iOS/App1.iOS.csproj
-      - run: ~/.nuget/packages
+      - run: ls ~/.nuget/packages
   iOS:
     name: "Build and test on iOS"
     runs-on: macos-10.15
