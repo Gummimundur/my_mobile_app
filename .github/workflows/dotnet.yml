@@ -6,16 +6,14 @@ jobs:
     runs-on: macos-10.15
     steps:
       - name: Checkout
-        uses: actions/checkout@v2      
-
-      - run: echo "NUGET_EXE=/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe" >> $GITHUB_ENV
-      - run: echo "NUNIT3-CONSOLE=/Library/Frameworks/Mono.framework/Versions//6.12.0/Commands/nunit3-console" >> $GITHUB_ENV
-      - run: mono $NUGET_EXE install NUnit.Console
-      
+        uses: actions/checkout@v2     
+        
+      - name: Download NUnit.Console
+        run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe install NUnit.Console
+  
       - uses: malinskiy/action-android/install-sdk@release/0.1.1
       - run: sdkmanager "platform-tools" "platforms;android-28"
       - run: sdkmanager "build-tools;30.0.2"
-      - run: adb devices
       
       - name: Restore Nuget Packages
         run: mono $NUGET_EXE restore App1/App1.sln
@@ -26,7 +24,7 @@ jobs:
       - name: Build UI Test project
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
         
-      - name: UITest
+      - name: Android UItest
         uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
         with:
             cmd: mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe App1/UItest/bin/Release/UItest.dll --where "test =~ Android"
