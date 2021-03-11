@@ -3,8 +3,6 @@ on: [push, pull_request]
 jobs: 
   Android:
     name: "Build and test on Android"
-    env:
-      Device: "iPhone 11 (14.3)"
     runs-on: macos-10.15
     steps:
       - name: Checkout
@@ -23,11 +21,8 @@ jobs:
         run: mono $NUGET_EXE restore App1/App1.sln
     
       - name: Build ios
-        run: msbuild App1/App1/App1.iOS /p:Configuration=Release /p:Platform=iPhoneSimulator /t:Build
-        
-      - name: Check ios
-        run: |
-          ls App1/App1/App1.iOS/bin/iPhoneSimulator/Release
+        run: msbuild App1/App1/App1.iOS /p:Configuration=Debug /p:Platform=iPhoneSimulator /t:Build
+
       - name: Build APK
         run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
         
