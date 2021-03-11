@@ -1,5 +1,5 @@
 name: CI on Push and Pull Request
-on:
+on: [push, pull_request]
 jobs: 
   Android:
     name: "Build and test on Android"
@@ -7,12 +7,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2      
-      - run: /usr/bin/xcodebuild -version
-      - run: xcrun instruments -s devices
+
       - run: echo "NUGET_EXE=/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe" >> $GITHUB_ENV
       - run: echo "NUNIT3-CONSOLE=/Library/Frameworks/Mono.framework/Versions//6.12.0/Commands/nunit3-console" >> $GITHUB_ENV
       - run: mono $NUGET_EXE install NUnit.Console
-      - run: ls /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools
+      
       - uses: malinskiy/action-android/install-sdk@release/0.1.1
       - run: sdkmanager "platform-tools" "platforms;android-28"
       - run: sdkmanager "build-tools;30.0.2"
@@ -21,25 +20,14 @@ jobs:
       - name: Restore Nuget Packages
         run: mono $NUGET_EXE restore App1/App1.sln
     
-      - name: Build ios
-        run:  xcrun xcodebuild -project ProjectFile.xcodeproj -configuration ConfiguratonWithCalabashLinked -sdk iphonesimulator ARCHS="x86_64" VALID_ARCHS="x86_64" ONLY_ACTIVE_ARCH=NO -scheme SchemeWithCalabashLinked -derivedDataPath DerivedData build
-
-      - name: Build APK
+      - name: Build .APK
         run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
         
       - name: Build UI Test project
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
         
-      - name: UITest iOS
-        run: mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe App1/UItest/bin/Release/UItest.dll --where "test =~ iOS"
-          
-      - uses: actions/upload-artifact@v2.2.1
-        with:
-          name: output
-          path: App1/UItest/bin/Release/screenshots
-        
       - name: UITest
-        uses: malinskiy/action-android/emulator-run-cmd@release/0.0.6
+        uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
         with:
             cmd: mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe App1/UItest/bin/Release/UItest.dll --where "test =~ Android"
             api: 28
@@ -49,7 +37,7 @@ jobs:
       
       - uses: actions/upload-artifact@v2.2.1
         with:
-          name: output
+          name: Android-screenshots
           path: App1/UItest/bin/Release/screenshots
         
 
