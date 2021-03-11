@@ -16,7 +16,7 @@ jobs:
         run: mono $NUGET_EXE restore App1/App1.sln
     
       - name: Build ios
-        run: msbuild App1/App1/App1.iOS/App1.iOS.csproj -target:SignAndroidPackage /p:Configuration=Release
+        run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Release
       - name: Build UI Test project
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
         
