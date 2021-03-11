@@ -13,8 +13,13 @@ jobs:
         env:
           cache-name: nuget-cache
         with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }}-${{ hashfiles('App1/App1/App1.Android/App1.Android.csproj') }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}
+          path: |
+            ~/.nuget/packages
+            /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1.iOS/obj/
+            /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1.Android/obj/
+            /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1/obj/
+            /Users/runner/work/my_mobile_app/my_mobile_app/App1/UItest/obj/
+          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }}-${{ hashfiles('App1/App1/App1.Android/App1.Android.csproj') }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}-${{ hashfiles('App1/UItest/UItest.csproj') }}
       
       - name: Nuget restore
         if: steps.nuget-packages.outputs.cache-hit != 'true'
@@ -34,8 +39,13 @@ jobs:
         env:
           cache-name: nuget-cache
         with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }}-${{ hashfiles('App1/App1/App1.Android/App1.Android.csproj') }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}
+          path: |
+            ~/.nuget/packages
+            /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1.iOS/obj/
+            /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1.Android/obj/
+            /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1/obj/
+            /Users/runner/work/my_mobile_app/my_mobile_app/App1/UItest/obj/
+          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }}-${{ hashfiles('App1/App1/App1.Android/App1.Android.csproj') }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}-${{ hashfiles('App1/UItest/UItest.csproj') }}
           
       
       - run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe install NUnit.Console
