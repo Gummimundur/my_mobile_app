@@ -51,7 +51,7 @@ namespace Xamarin.UITest.POPSample
 
             if (Platform == Platform.iOS)
             {
-                const string simId = "58B9EF94-FF0C-4325-AED5-EC6D8B3744E2";
+                const string simId = "2C69D2E4-AA36-4EA2-B04E-3AA33AB2D482";
                 app = ConfigureApp
                     .iOS
                     .EnableLocalScreenshots()
