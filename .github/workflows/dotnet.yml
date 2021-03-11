@@ -9,10 +9,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2      
-      - run: ls /Applications | grep Xcode
-      - run: xcrun simctl list
-      - run: open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app --args -CurrentDeviceUDID 58B9EF94-FF0C-4325-AED5-EC6D8B3744E2
-      - run: xcrun simctl list
+
       - run: echo "NUGET_EXE=/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe" >> $GITHUB_ENV
       - run: echo "NUNIT3-CONSOLE=/Library/Frameworks/Mono.framework/Versions//6.12.0/Commands/nunit3-console" >> $GITHUB_ENV
       - run: mono $NUGET_EXE install NUnit.Console
