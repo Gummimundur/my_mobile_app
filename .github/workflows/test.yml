@@ -1,0 +1,20 @@
+name: Prufa
+on: [push, pull_request]
+jobs: 
+  create:
+    name: Create
+    runs-on: macos-10.15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2 
+        
+      - run: mkdir yellow
+  check:
+    name: ye
+    runs-on: macos-10.15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - run: cd yellow
+        
