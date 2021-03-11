@@ -16,8 +16,7 @@ jobs:
         run: mono $NUGET_EXE restore App1/App1.sln
     
       - name: Build ios
-        run:  xcrun xcodebuild -project ProjectFile.xcodeproj -configuration ConfiguratonWithCalabashLinked -sdk iphonesimulator ARCHS="x86_64" VALID_ARCHS="x86_64" ONLY_ACTIVE_ARCH=NO -scheme SchemeWithCalabashLinked -derivedDataPath DerivedData build
-        
+        run: xbuild App1/App1/App1.iOS/App1.iOS.csproj /target:Build /p:Configuration=Release
       - name: Build UI Test project
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
         
