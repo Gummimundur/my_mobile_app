@@ -37,8 +37,10 @@ jobs:
       - name: nuget restore
         if: steps.app1.outputs.cache-hit != 'true'
         run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1/App1.csproj
+      - name: nuget restore Android
         if: steps.android.outputs.cache-hit != 'true'
         run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1.Android/App1.Android.csproj
+      - name: nuget restore ios
         if: steps.ios.outputs.cache-hit != 'true'
         run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1.iOS/App1.iOS.csproj
           
