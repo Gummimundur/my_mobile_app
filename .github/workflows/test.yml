@@ -6,10 +6,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-    
-    - name: Check before cache
-      run: |
-        ls /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1/obj
+  
     
     - name: Cache nuget packages
       id: cacheStep
@@ -22,7 +19,11 @@ jobs:
     - name: nuget restore
       if: steps.cacheStep.outputs.cache-hit != 'true'
       run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1/App1.csproj
-        
+  
+    - name: Check 
+      run: |
+        ls /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1/obj
+  
   after:
     runs-on: macos-10.15
     needs: create
