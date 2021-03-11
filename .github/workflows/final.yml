@@ -1,0 +1,86 @@
+name: CI on Push and Pull Request
+on: [push, pull_request]
+jobs: 
+  Build:
+    runs-on: macos-10.15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Cache nuget packages App1
+        id: app1
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-app1
+        with:
+          path: /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1/obj
+          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }}
+          
+      - name: Cache nuget packages Android
+        id: android
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-android
+        with: 
+          path: /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1.Android/obj
+          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1.Android/App1.Android.csproj') }}
+          
+      - name: Cache nuget packages iOS
+        id: ios
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-ios
+        with: 
+          path: /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1.iOS/obj
+          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}
+
+      - name: nuget restore
+        if: steps.app1.outputs.cache-hit != 'true'
+        run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1/App1.csproj
+        if: steps.android.outputs.cache-hit != 'true'
+        run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1.Android/App1.Android.csproj
+        if: steps.ios.outputs.cache-hit != 'true'
+        run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1.iOS/App1.iOS.csproj
+          
+  iOS:
+    name: "Build and test on iOS"
+    runs-on: macos-10.15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2      
+        
+      - name: Cache nuget packages iOS
+        id: ios
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-ios
+        with: 
+          path: /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1.iOS/obj
+          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}
+          
+      - name: Cache nuget packages App1
+        id: app1
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-app1
+        with:
+          path: /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1/obj
+          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }}
+      
+      - run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe install NUnit.Console
+    
+      - name: Build iOS
+        run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Release
+        
+      - name: Build UI Test project
+        run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
+        
+      - name: UITest iOS
+        run: mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe App1/UItest/bin/Release/UItest.dll --where "test =~ iOS"
+          
+      - uses: actions/upload-artifact@v2.2.1
+        with:
+          name: iOS-screenshots
+          path: App1/UItest/bin/Release/screenshots
+
+
