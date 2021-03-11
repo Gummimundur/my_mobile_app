@@ -14,9 +14,6 @@ jobs:
       - uses: malinskiy/action-android/install-sdk@release/0.1.1
       - run: sdkmanager "platform-tools" "platforms;android-28"
       - run: sdkmanager "build-tools;30.0.2"
-      
-      - name: Restore Nuget Packages
-        run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1.sln
     
       - name: Build .APK
         run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
