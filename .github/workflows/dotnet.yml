@@ -8,6 +8,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2      
       - run: /usr/bin/xcodebuild -version
+      - run: xcrun instruments -s devices
       - run: echo "NUGET_EXE=/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe" >> $GITHUB_ENV
       - run: echo "NUNIT3-CONSOLE=/Library/Frameworks/Mono.framework/Versions//6.12.0/Commands/nunit3-console" >> $GITHUB_ENV
       - run: mono $NUGET_EXE install NUnit.Console
