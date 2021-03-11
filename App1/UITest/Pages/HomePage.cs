@@ -26,6 +26,11 @@ namespace UITest.Pages
                 loginButton = x => x.Marked("Browse");
                 item = x => x.Marked("Third item");
             }
+            if (OniOS)
+            {
+                loginButton = x => x.Marked("Browse");
+                item = x => x.Marked("Third item");
+            }
         }
 
         public LoginPage Clicker()
