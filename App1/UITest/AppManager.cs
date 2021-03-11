@@ -55,7 +55,7 @@ namespace Xamarin.UITest.POPSample
                     .iOS
                     // Used to run a .app file on an ios simulator:
                     .EnableLocalScreenshots()
-                    .AppBundle("../../../App1/App1/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app")
+                    .AppBundle("../../../App1/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app")
                     .StartApp();
             }
         }
