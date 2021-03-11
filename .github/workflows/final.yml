@@ -18,7 +18,7 @@ jobs:
       
       - name: Nuget restore
         if: steps.nuget-packages.outputs.cache-hit != 'true'
-        run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1.sln
+        run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1.sln
         
   iOS:
     name: "Build and test on iOS"
