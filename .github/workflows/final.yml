@@ -13,7 +13,7 @@ jobs:
         env:
           cache-name: cache-app1
         with:
-          path: /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1/obj/**
+          path: /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1/obj/
           key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }}
           
       - name: Cache nuget packages Android
@@ -22,7 +22,7 @@ jobs:
         env:
           cache-name: cache-android
         with: 
-          path: /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1.Android/obj/**
+          path: /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1.Android/obj/
           key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1.Android/App1.Android.csproj') }}
           
       - name: Cache nuget packages iOS
@@ -31,9 +31,9 @@ jobs:
         env:
           cache-name: cache-ios
         with: 
-          path: /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1.iOS/obj/**
+          path: /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1.iOS/obj/
           key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}
-
+      - run: ~/.nuget/packages
       - name: nuget restore
         if: steps.app1.outputs.cache-hit != 'true'
         run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1/App1.csproj
@@ -43,7 +43,7 @@ jobs:
       - name: nuget restore ios
         if: steps.ios.outputs.cache-hit != 'true'
         run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1.iOS/App1.iOS.csproj
-          
+      - run: ~/.nuget/packages
   iOS:
     name: "Build and test on iOS"
     runs-on: macos-10.15
