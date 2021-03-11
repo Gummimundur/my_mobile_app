@@ -13,7 +13,6 @@ jobs:
         path: /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1/obj
         key: ${{ runner.os }}-restore-App1-${{ hashFiles('App1/App1/App1/App1.csproj') }}
         
-    
     - name: nuget restore
       if: steps.App1.outputs.cache-hit != 'true'
       run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1/App1/App1.csproj
