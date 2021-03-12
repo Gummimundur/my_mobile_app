@@ -74,20 +74,6 @@ jobs:
         run: |
           find ./binaries
           
-      - name: Cache nuget packages 
-        id: nuget-packages
-        uses: actions/cache@v2
-        env:
-          cache-name: nuget-cache
-        with:
-          path: |
-            ~/.nuget/packages
-            /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1.iOS/obj/
-            /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1.Android/obj/
-            /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1/obj/
-            /Users/runner/work/my_mobile_app/my_mobile_app/App1/UItest/obj/
-          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }}-${{ hashfiles('App1/App1/App1.Android/App1.Android.csproj') }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}-${{ hashfiles('App1/UItest/UItest.csproj') }}
-          
       - run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe install NUnit.Console
       
       - run: ls binaries/UItest/
