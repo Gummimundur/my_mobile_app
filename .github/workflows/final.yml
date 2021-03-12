@@ -1,5 +1,7 @@
 name: CI final
 on: [push, pull_request]
+env:
+  NUNIT_CONSOLE_VERSION: 3.12.0
 jobs: 
   Build:
     runs-on: macos-10.15
@@ -26,7 +28,16 @@ jobs:
         if: steps.nuget-packages.outputs.cache-hit != 'true'
         run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1.sln
         
-      - run: echo "$GITHUB_SHA-$GITHUB_RUN_ID"
+      - name: Cache NUnit.Console
+        id: nunit-console
+        uses: actions/cache@v2
+        with:
+          path: /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe
+          key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
+        
+      - name: Download NUnit-Console
+        if: steps.nunit-console.outputs.cache-hit != 'true'
+        run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe install NUnit.Console -Version $env.NUNIT_CONSOLE_VERSION
         
       - name: Cache binaries
         id: binaries
@@ -53,6 +64,45 @@ jobs:
           mv App1/App1/App1.Android/bin/Release/com.companyname.app1.apk binaries
           mv App1/App1/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app binaries
           find ./binaries
+          
+  Android-UItest:
+    runs-on: macos-10.15
+    needs: Build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2     
+        
+      - name: Cache binaries
+        id: binaries
+        uses: actions/cache@v2
+        with:
+          path: /Users/runner/work/my_mobile_app/my_mobile_app/binaries/
+          key: ${{ github.sha }}-${{ github.run_id }}
+        
+      - name: Cache NUnit.Console
+        id: nunit-console
+        uses: actions/cache@v2
+        with:
+          path: /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe
+          key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
+  
+      - uses: malinskiy/action-android/install-sdk@release/0.1.1
+      - run: sdkmanager "platform-tools" "platforms;android-28"
+      - run: sdkmanager "build-tools;30.0.2"
+        
+      - name: Android UItest
+        uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
+        with:
+            cmd: mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe binaries/UItest/bin/Release/UItest.dll --where "test =~ Android"
+            api: 28
+            tag: default
+            abi: x86   
+            verbose: false
+      
+      - uses: actions/upload-artifact@v2.2.1
+        with:
+          name: Android-screenshots
+          path: App1/UItest/bin/Release/screenshots
 
 
           
@@ -70,15 +120,19 @@ jobs:
           path: /Users/runner/work/my_mobile_app/my_mobile_app/binaries/
           key: ${{ github.sha }}-${{ github.run_id }}
           
-      - name: Check for binaries
-        run: |
-          find ./binaries
-          
-      - run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe install NUnit.Console
+      - name: Cache NUnit.Console
+        id: nunit-console
+        uses: actions/cache@v2
+        with:
+          path: /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe
+          key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
       
       - run: ls binaries/UItest/
       
       - name: UITest iOS
         run: mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe binaries/UItest/bin/Release/UItest.dll --where "test =~ iOS"
 
-
+      - uses: actions/upload-artifact@v2.2.1
+        with:
+          name: iOS-screenshots
+          path: App1/UItest/bin/Release/screenshots
