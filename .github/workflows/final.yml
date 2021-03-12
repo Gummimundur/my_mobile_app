@@ -26,7 +26,7 @@ jobs:
         if: steps.nuget-packages.outputs.cache-hit != 'true'
         run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1.sln
         
-      
+      - run: echo "$GITHUB_SHA-$GITHUB_RUN_ID"
         
       - name: Cache binaries
         id: binaries
@@ -45,12 +45,10 @@ jobs:
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
         
       - name: Create binaries
-        if: steps.binaries.outputs.cache-hit != 'true'
         run: |
           mkdir binaries
           mkdir binaries/UItest
           mv App1/UItest/ binaries/UItest
-          ls binaries/UItest
           mv App1/App1/App1.Android/bin/Release/com.companyname.app1.apk binaries
           mv App1/App1/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app binaries
 
