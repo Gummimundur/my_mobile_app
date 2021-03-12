@@ -3,7 +3,7 @@ on: [push, pull_request]
 env:
   NUNIT_CONSOLE_VERSION: 3.12.0
   NUGET_EXE: /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe
-  NUNIT_CONSOLE: /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.${ env.NUNIT_CONSOLE_VERSION }/tools/nunit3-console.exe
+  NUNIT_CONSOLE: /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe
 jobs: 
   Build:
     runs-on: macos-10.15
@@ -39,7 +39,7 @@ jobs:
         
       - name: Download NUnit-Console
         if: steps.nunit-console.outputs.cache-hit != 'true'
-        run: mono ${{ env.NUGET_EXE }} -Version ${{ env.NUNIT_CONSOLE_VERSION }}
+        run: mono ${{ env.NUGET_EXE }} install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
         
       - name: Cache binaries
         id: binaries
@@ -65,7 +65,6 @@ jobs:
           mv App1/UItest/ binaries
           mv App1/App1/App1.Android/bin/Release/com.companyname.app1.apk binaries
           mv App1/App1/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app binaries
-          find ./binaries
           
   Android-UItest:
     runs-on: macos-10.15
