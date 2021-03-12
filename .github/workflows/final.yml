@@ -68,7 +68,12 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /Users/runner/work/my_mobile_app/my_mobile_app/binaries/
-          key: "$GITHUB_SHA-$GITHUB_RUN_ID"
+          key: ${{ github.sha }}-${{ github.run_id }}
+          
+      - name: Check for binaries
+        run: |
+          ls binaries
+          ls binaries/UItest
           
       - name: Cache nuget packages 
         id: nuget-packages
