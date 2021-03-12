@@ -35,7 +35,7 @@ jobs:
           key: "${GITHUB_SHA}-${GITHUB_RUN_ID}"
         with:
           path: /Users/runner/work/my_mobile_app/my_mobile_app/binaries/
-          key: ${{ env.key }}
+          key: ${{ github.sha }}-${{ github.run_id }}
       
       - name: Build iOS bundle
         run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Release
