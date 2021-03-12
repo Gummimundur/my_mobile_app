@@ -38,6 +38,9 @@ jobs:
         
       - name: Build .Apk
         run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
+      
+      - name: Build UItest
+        run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
         
       - name: Move binaries
         run: |
