@@ -26,43 +26,30 @@ jobs:
         if: steps.nuget-packages.outputs.cache-hit != 'true'
         run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1.sln
         
-  iOS:
-    name: "Build and test on iOS"
-    runs-on: macos-10.15
-    needs: Build
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2      
-        
-      - name: Cache nuget packages 
-        id: nuget-packages
+      - name: Cache binaries
+        id: binaries
         uses: actions/cache@v2
-        env:
-          cache-name: nuget-cache
         with:
-          path: |
-            ~/.nuget/packages
-            /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1.iOS/obj/
-            /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1.Android/obj/
-            /Users/runner/work/my_mobile_app/my_mobile_app/App1/App1/App1/obj/
-            /Users/runner/work/my_mobile_app/my_mobile_app/App1/UItest/obj/
-          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }}-${{ hashfiles('App1/App1/App1.Android/App1.Android.csproj') }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}-${{ hashfiles('App1/UItest/UItest.csproj') }}
-          
+          path: /Users/runner/work/my_mobile_app/my_mobile_app/binaries/
+          key: ${{ $GITHUB_RUN_ID}}
       
-      - run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe install NUnit.Console
-    
-      - name: Build iOS
+      - name: Build iOS bundle
         run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Release
         
-      - name: Build UI Test project
-        run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
+      - name: Build .Apk
+        run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
         
-      - name: UITest iOS
-        run: mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe App1/UItest/bin/Release/UItest.dll --where "test =~ iOS"
+      - name: Move binaries
+        run: |
+          mkdir binaries
+          mv App1/UItest/bin/Release/UItest.dll binaries
+          mv App1/App1.Android/bin/Release/com.companyname.app1.apk binaries
+          mv App1/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app binaries
           
-      - uses: actions/upload-artifact@v2.2.1
-        with:
-          name: iOS-screenshots
-          path: App1/UItest/bin/Release/screenshots
+      - name: Check binaries folder
+        run: |
+          ls binaries
+          
+  
 
 
