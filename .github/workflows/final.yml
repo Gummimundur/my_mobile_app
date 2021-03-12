@@ -86,6 +86,6 @@ jobs:
       - run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe install NUnit.Console
       
       - name: UITest iOS
-        run: mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe binaries/UItest.dll --where "test =~ iOS"
+        run: mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe binaries/UItest/UItest.dll --where "test =~ iOS"
 
 
