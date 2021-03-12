@@ -46,8 +46,8 @@ jobs:
         run: |
           mkdir binaries
           mv App1/UItest/bin/Release/UItest.dll binaries
-          mv App1/App1.Android/bin/Release/com.companyname.app1.apk binaries
-          mv App1/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app binaries
+          mv App1/App1/App1.Android/bin/Release/com.companyname.app1.apk binaries
+          mv App1/App1/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app binaries
           
       - name: Check binaries folder
         run: |
