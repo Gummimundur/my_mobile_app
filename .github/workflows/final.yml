@@ -33,7 +33,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /Users/runner/work/my_mobile_app/my_mobile_app/binaries/
-          key: ${{ GITHUB_SHA }}-${{ GITHUB_RUN_ID }}
+          key: "$GITHUB_SHA-$GITHUB_RUN_ID"
       
       - name: Build iOS bundle
         run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Release
