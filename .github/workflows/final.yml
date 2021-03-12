@@ -37,7 +37,7 @@ jobs:
         
       - name: Download NUnit-Console
         if: steps.nunit-console.outputs.cache-hit != 'true'
-        run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe install NUnit.Console -Version $env.NUNIT_CONSOLE_VERSION
+        run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
         
       - name: Cache binaries
         id: binaries
