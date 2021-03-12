@@ -45,7 +45,7 @@ namespace Xamarin.UITest.POPSample
                 app = ConfigureApp
                     .Android
                     .EnableLocalScreenshots()
-                    .ApkFile("../../../App1/App1.Android/bin/Release/com.companyname.app1.apk")
+                    .ApkFile("../../../../binaries/com.companyname.app1.apk")
                     .StartApp();
             }
 
@@ -57,7 +57,7 @@ namespace Xamarin.UITest.POPSample
                     .EnableLocalScreenshots()
                     .PreferIdeSettings()
                     .DeviceIdentifier(simId)
-                    .AppBundle("../../../App1/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app")
+                    .AppBundle("../../../../binaries/App1.iOS.app")
                     .StartApp();
             }
         }
