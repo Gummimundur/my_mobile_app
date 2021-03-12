@@ -49,7 +49,8 @@ jobs:
         run: |
           mkdir binaries
           mkdir binaries/UItest
-          mv App1/UItest/bin/Release binaries/UItest
+          mv App1/UItest/ binaries/UItest
+          ls binaries/UItest
           mv App1/App1/App1.Android/bin/Release/com.companyname.app1.apk binaries
           mv App1/App1/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app binaries
 
@@ -85,7 +86,9 @@ jobs:
           
       - run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe install NUnit.Console
       
+      - run: ls binaries/UItest/
+      
       - name: UITest iOS
-        run: mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe binaries/UItest/UItest.dll --where "test =~ iOS"
+        run: mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe binaries/UItest/bin/Release/UItest.dll --where "test =~ iOS"
 
 
