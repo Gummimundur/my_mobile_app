@@ -32,7 +32,7 @@ jobs:
         id: binaries
         uses: actions/cache@v2
         env:
-          key: $GITHUB_SHA-$GITHUB_RUN_ID
+          key: ${{ GITHUB_SHA }}-${{ GITHUB_RUN_ID }}
         with:
           path: /Users/runner/work/my_mobile_app/my_mobile_app/binaries/
           key: ${{ env.key }}
