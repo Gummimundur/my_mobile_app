@@ -11,6 +11,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
+      - name: workspace
+        run: |
+          echo "$github.workspace"
+          pwd
         
       - name: Cache nuget packages 
         id: nuget-packages
@@ -103,7 +107,7 @@ jobs:
       - uses: actions/upload-artifact@v2.2.1
         with:
           name: Android-screenshots
-          path: App1/UItest/bin/Release/screenshots
+          path: binaries/UItest/bin/Release/screenshots
 
 
           
@@ -134,4 +138,4 @@ jobs:
       - uses: actions/upload-artifact@v2.2.1
         with:
           name: iOS-screenshots
-          path: App1/UItest/bin/Release/screenshots
+          path: binaries/UItest/bin/Release/screenshots
