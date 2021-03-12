@@ -31,7 +31,6 @@ jobs:
           key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }}-${{ hashfiles('App1/App1/App1.Android/App1.Android.csproj') }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}-${{ hashfiles('App1/UItest/UItest.csproj') }}
       
       - name: Nuget restore
-        if: steps.nuget-packages.outputs.cache-hit != 'true'
         run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln
         
       - name: Cache NUnit.Console
@@ -39,10 +38,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./NUnit.ConsoleRunner.${{ env.NUNIT_CONSOLE_VERSION }}
-          key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}-${{ github.run_id }}
+          key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
         
       - name: Download NUnit-Console
-        if: steps.nunit-console.outputs.cache-hit != 'true'
         run: mono ${{ env.NUGET_EXE }} install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
         
       - name: Cache binaries
@@ -89,7 +87,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./NUnit.ConsoleRunner.${{ env.NUNIT_CONSOLE_VERSION }}
-          key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}-${{ github.run_id }}
+          key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
   
       - uses: malinskiy/action-android/install-sdk@release/0.1.1
       - run: sdkmanager "platform-tools" "platforms;android-28"
@@ -128,7 +126,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./NUnit.ConsoleRunner.${{ env.NUNIT_CONSOLE_VERSION }}
-          key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}-${{ github.run_id }}
+          key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
       
       - name: UITest iOS
         run: mono ${{ env.NUNIT_CONSOLE }} binaries/UItest/bin/Release/UItest.dll --where "test =~ iOS"
