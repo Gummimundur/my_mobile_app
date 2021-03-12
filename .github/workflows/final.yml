@@ -24,10 +24,10 @@ jobs:
         with:
           path: |
             ~/.nuget/packages
-            App1/App1/App1.iOS/obj/
-            App1/App1/App1.Android/obj/
-            App1/App1/App1/obj/
-            App1/UItest/obj/
+            ./App1/App1/App1.iOS/obj/
+            ./App1/App1/App1.Android/obj/
+            ./App1/App1/App1/obj/
+            ./App1/UItest/obj/
           key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }}-${{ hashfiles('App1/App1/App1.Android/App1.Android.csproj') }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}-${{ hashfiles('App1/UItest/UItest.csproj') }}
       
       - name: Nuget restore
@@ -38,7 +38,7 @@ jobs:
         id: nunit-console
         uses: actions/cache@v2
         with:
-          path: /NUnit.ConsoleRunner.${{ env.NUNIT_CONSOLE_VERSION }}
+          path: ./NUnit.ConsoleRunner.${{ env.NUNIT_CONSOLE_VERSION }}
           key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}-${{ github.run_id }}
         
       - name: Download NUnit-Console
@@ -51,7 +51,7 @@ jobs:
         env:
           key: "${GITHUB_SHA}-${GITHUB_RUN_ID}"
         with:
-          path: /binaries
+          path: ./binaries
           key: ${{ github.sha }}-${{ github.run_id }}
       
       - name: Build iOS bundle
@@ -81,14 +81,14 @@ jobs:
         id: binaries
         uses: actions/cache@v2
         with:
-          path: /binaries
+          path: ./binaries
           key: ${{ github.sha }}-${{ github.run_id }}
         
       - name: Cache NUnit.Console
         id: nunit-console
         uses: actions/cache@v2
         with:
-          path: /NUnit.ConsoleRunner.${{ env.NUNIT_CONSOLE_VERSION }}
+          path: ./NUnit.ConsoleRunner.${{ env.NUNIT_CONSOLE_VERSION }}
           key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}-${{ github.run_id }}
   
       - uses: malinskiy/action-android/install-sdk@release/0.1.1
@@ -120,14 +120,14 @@ jobs:
         id: binaries
         uses: actions/cache@v2
         with:
-          path: /Users/runner/work/my_mobile_app/my_mobile_app/binaries/
+          path: ./binaries
           key: ${{ github.sha }}-${{ github.run_id }}
           
       - name: Cache NUnit.Console
         id: nunit-console
         uses: actions/cache@v2
         with:
-          path: /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.${{ env.NUNIT_CONSOLE_VERSION }}/
+          path: ./NUnit.ConsoleRunner.${{ env.NUNIT_CONSOLE_VERSION }}
           key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}-${{ github.run_id }}
       
       - name: UITest iOS
