@@ -72,8 +72,7 @@ jobs:
           
       - name: Check for binaries
         run: |
-          ls binaries
-          ls binaries/UItest
+          find ./binaries
           
       - name: Cache nuget packages 
         id: nuget-packages
