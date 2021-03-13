@@ -41,7 +41,7 @@ jobs:
           key: ${{ github.sha }}-${{ github.run_id }}
       
       - name: Build iOS bundle
-        run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Release
+        run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Release 
         
       - name: Build .Apk
         run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
@@ -55,7 +55,7 @@ jobs:
           mv App1/UItest/ binaries
           mv App1/App1/App1.Android/bin/Release/com.companyname.app1.apk binaries
           ls App1/App1/App1.iOS/bin/iPhoneSimulator/Release/
-          mv App1/App1/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app binaries
+          mv App1/App1/App1.iOS binaries
           
   Android-UItest:
     runs-on: macos-10.15
