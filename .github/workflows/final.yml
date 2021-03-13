@@ -16,20 +16,8 @@ jobs:
           echo "$github.workspace"
           pwd
         
-      - name: Cache nuget packages 
-        id: nuget-packages
-        uses: actions/cache@v2
-        env:
-          cache-name: nuget-cache
-        with:
-          path: |
-            ~/.nuget/packages
-            ./App1/App1/App1.iOS/obj/
-            ./App1/App1/App1.Android/obj/
-            ./App1/App1/App1/obj/
-            ./App1/UItest/obj/
-          key: ${{ runner.os}}-restore-${{ env.cache-name }}-${{ hashfiles('App1/App1/App1/App1.csproj') }}-${{ hashfiles('App1/App1/App1.Android/App1.Android.csproj') }}-${{ hashfiles('App1/App1/App1.iOS/App1.iOS.csproj') }}-${{ hashfiles('App1/UItest/UItest.csproj') }}
-      
+
+          
       - name: Nuget restore
         run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln
         
