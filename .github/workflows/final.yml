@@ -66,8 +66,8 @@ jobs:
           mkdir binaries
           mv App1/UItest/ binaries
           mv App1/App1/App1.Android/bin/Release/com.companyname.app1.apk binaries
-          mv App1/App1/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app binaries
           ls App1/App1/App1.iOS/bin/iPhoneSimulator/Release/
+          mv App1/App1/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app binaries
           
   Android-UItest:
     runs-on: macos-10.15
