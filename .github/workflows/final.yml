@@ -58,6 +58,9 @@ jobs:
           mv App1/App1/App1.Android/bin/Release/com.companyname.app1.apk binaries
           mv App1/App1/App1.iOS binaries
           
+      - name: UITest iOS
+        run: mono ${{ env.NUNIT_CONSOLE }} binaries/UItest/bin/Release/UItest.dll --where "test =~ iOS"
+          
   Android-UItest:
     runs-on: macos-latest
     needs: Build
