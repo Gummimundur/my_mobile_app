@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Xamarin.UITest;
 
-namespace Xamarin.UITest.POPSample
+namespace UITest
 {
     [TestFixture(Platform.Android)]
     [TestFixture(Platform.iOS)]

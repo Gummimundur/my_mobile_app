@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Xamarin.UITest;
 
-namespace Xamarin.UITest.POPSample
+namespace UITest
 {
     public abstract class BasePage
     {

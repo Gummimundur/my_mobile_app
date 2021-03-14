@@ -2,7 +2,7 @@
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
 
-namespace Xamarin.UITest.POPSample
+namespace UITest
 {
     public class PlatformQuery
     {

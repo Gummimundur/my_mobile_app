@@ -3,7 +3,7 @@ using System.IO;
 using System.Reflection;
 using Xamarin.UITest;
 
-namespace Xamarin.UITest.POPSample
+namespace UITest
 {
     static class AppManager
     {

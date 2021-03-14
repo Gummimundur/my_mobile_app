@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
 using Xamarin.UITest;
-using Xamarin.UITest.POPSample;
 using System;
-using UITest.Pages;
 using System.IO;
 
 namespace UITest
