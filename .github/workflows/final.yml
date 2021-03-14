@@ -6,7 +6,7 @@ env:
   NUNIT_CONSOLE: /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe
 jobs: 
   Build:
-    runs-on: macos-10.15
+    runs-on: macos-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -57,7 +57,7 @@ jobs:
           mv App1/App1/App1.iOS binaries
           
   Android-UItest:
-    runs-on: macos-10.15
+    runs-on: macos-latest
     needs: Build
     steps:
       - name: Checkout
@@ -108,6 +108,8 @@ jobs:
         with:
           path: ./binaries
           key: ${{ github.sha }}-${{ github.run_id }}
+          
+      - run: xcrun simctl list
           
       - name: Cache NUnit.Console
         id: nunit-console
