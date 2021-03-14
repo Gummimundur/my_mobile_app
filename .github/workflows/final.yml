@@ -43,7 +43,7 @@ jobs:
           key: ${{ github.sha }}-${{ github.run_id }}
       
       - name: Build iOS bundle
-        run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Debug /p:Platform=iPhoneSimulator
+        run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Debug /p:Platform=iPhoneSimulator /verbosity:normal /t:Rebuild
         
       - name: Build .Apk
         run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
@@ -58,8 +58,6 @@ jobs:
           mv App1/App1/App1.Android/bin/Release/com.companyname.app1.apk binaries
           mv App1/App1/App1.iOS binaries
           
-      - name: UITest iOS
-        run: mono ${{ env.NUNIT_CONSOLE }} binaries/UItest/bin/Release/UItest.dll --where "test =~ iOS"
           
   Android-UItest:
     runs-on: macos-latest
