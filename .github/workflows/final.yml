@@ -41,7 +41,7 @@ jobs:
           key: ${{ github.sha }}-${{ github.run_id }}
       
       - name: Build iOS bundle
-        run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Release 
+        run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Release /p:Platform:iPhoneSimulator
         
       - name: Build .Apk
         run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
