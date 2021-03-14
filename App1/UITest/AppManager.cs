@@ -57,7 +57,7 @@ namespace UITest
                     .EnableLocalScreenshots()
                     .PreferIdeSettings()
                     .DeviceIdentifier(simId)
-                    .AppBundle("../../../../binaries/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app")
+                    .AppBundle("../../../../binaries/App1.iOS/bin/iPhoneSimulator/Debug/App1.iOS.app")
                     .StartApp();
             }
         }
