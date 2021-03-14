@@ -11,6 +11,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
+      - run: xcrun simctl list
+        
       - name: workspace
         run: |
           echo "$github.workspace"
@@ -109,7 +111,6 @@ jobs:
           path: ./binaries
           key: ${{ github.sha }}-${{ github.run_id }}
           
-      - run: xcrun simctl list
           
       - name: Cache NUnit.Console
         id: nunit-console
