@@ -12,4 +12,6 @@ jobs:
         uses: actions/checkout@v2  
         
       - name: mono
-        run: emulator -list-avds
+        run: |
+          avdmanager create avd -n Android28 -k "system-images;android-28;google_apis;x86"
+          emulator -list-avds
