@@ -11,6 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2     
         
+        
       - name: Download NUnit.Console
         run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe install NUnit.Console
   
