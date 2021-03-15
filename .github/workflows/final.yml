@@ -106,7 +106,6 @@ jobs:
           path: ./binaries
           key: ${{ github.sha }}-${{ github.run_id }}
           
-          
       - name: Cache NUnit.Console
         id: nunit-console
         uses: actions/cache@v2
