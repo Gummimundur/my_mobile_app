@@ -13,4 +13,4 @@ jobs:
         
 
       - run: |
-          ls /usr/local/lib/android/sdk/cmdline-tools/latest/bin
+          /usr/local/lib/android/sdk/cmdline-tools/latest/bin/avdmanager create avd -n Android28 -k "system-images;android-28;google_apis;x86"
