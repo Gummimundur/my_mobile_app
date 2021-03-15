@@ -14,11 +14,6 @@ jobs:
       - name: mono
         run: | 
           which mono
-          
-      - name: what is in mono
-        run: |
-          which nuget
-          nuget --version
         
       - name: Cache ./nuget/packages
         uses: actions/cache@v2
