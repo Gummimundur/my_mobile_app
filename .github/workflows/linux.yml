@@ -13,4 +13,5 @@ jobs:
         
 
       - run: |
+          sudo apt-get install tree
           tree /usr/local/lib/android/sdk
