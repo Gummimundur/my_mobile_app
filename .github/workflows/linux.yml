@@ -13,4 +13,4 @@ jobs:
         
 
       - run: |
-          ls /usr/local/lib/android/sdk/cmdline-tools/version/bin
+          tree /usr/local/lib/android/sdk
