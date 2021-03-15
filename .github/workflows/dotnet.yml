@@ -2,7 +2,7 @@ name: CI on Push and Pull Request
 on: 
   push:
     branches:
-      - no
+      - main
 jobs: 
   Android:
     name: "Build and test on Android"
