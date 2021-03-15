@@ -22,10 +22,9 @@ namespace App1.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            #if DEBUG
-// requires Xamarin Test Cloud Agent
+#if DEBUG
             Xamarin.Calabash.Start();
-            #endif
+#endif
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
