@@ -55,6 +55,7 @@ namespace UITest
                 app = ConfigureApp
                     .iOS
                     .EnableLocalScreenshots()
+                    .PreferIdeSettings()
                     .DeviceIdentifier(simId)
                     .AppBundle("../../../../binaries/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app")
                     .StartApp();
