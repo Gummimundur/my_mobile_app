@@ -46,7 +46,7 @@ namespace UITest
                     .Android
                     .EnableLocalScreenshots()
                     .PreferIdeSettings()
-                    .ApkFile("../../../../binaries/com.companyname.app1.apk")
+                    .ApkFile("../App1/App1.Android/bin/Release/com.companyname.app1.apk")
                     .StartApp();
             }
 
@@ -58,7 +58,7 @@ namespace UITest
                     .EnableLocalScreenshots()
                     .PreferIdeSettings()
                     .DeviceIdentifier(simId)
-                    .AppBundle("../../../../binaries/App1.iOS/bin/iPhoneSimulator/Debug/App1.iOS.app")
+                    .AppBundle("../App1/App1.iOS/bin/iPhoneSimulator/Debug/App1.iOS.app")
                     .StartApp();
             }
         }
