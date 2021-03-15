@@ -16,7 +16,9 @@ jobs:
           which mono
           
       - name: what is in mono
-        run: which nuget
+        run: |
+          which nuget
+          nuget --version
         
       - name: Cache ./nuget/packages
         uses: actions/cache@v2
@@ -29,7 +31,7 @@ jobs:
             ${{ runner.os }}-nuget-
           
       - name: Nuget restore
-        run: mono nuget restore App1/App1.sln
+        run: nuget restore App1/App1.sln
         
       - name: Cache NUnit.Console
         id: nunit-console
