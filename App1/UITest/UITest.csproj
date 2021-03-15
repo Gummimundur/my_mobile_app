@@ -40,11 +40,5 @@
     <Compile Include="PlatformQuery.cs" />
     <Compile Include="Tests\Tests.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\App1\App1\App1.csproj">
-      <Project>{505e333e-4aaa-414f-aed0-b1fa6880efaa}</Project>
-      <Name>App1</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
