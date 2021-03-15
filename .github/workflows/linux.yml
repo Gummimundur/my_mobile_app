@@ -29,7 +29,7 @@ jobs:
             ${{ runner.os }}-nuget-
           
       - name: Nuget restore
-        run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln
+        run: mono nuget restore App1/App1.sln
         
       - name: Cache NUnit.Console
         id: nunit-console
@@ -39,7 +39,7 @@ jobs:
           key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
         
       - name: Download NUnit-Console
-        run: mono ${{ env.NUGET_EXE }} install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
+        run: mono nuget install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
         
       - name: Cache binaries
         id: binaries
