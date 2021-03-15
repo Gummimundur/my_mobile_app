@@ -22,7 +22,7 @@ namespace App1.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            #if ENABLE_TEST_CLOUD
+            #if DEBUG
 // requires Xamarin Test Cloud Agent
             Xamarin.Calabash.Start();
             #endif
