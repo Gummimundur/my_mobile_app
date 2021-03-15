@@ -1,5 +1,7 @@
 name: CI final
-on: [push]
+on: 
+  schedule
+  -cron '*/5 * * * *'
 env:
   NUNIT_CONSOLE_VERSION: 3.12.0
   NUGET_EXE: /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe
@@ -9,16 +11,7 @@ jobs:
     runs-on: macos-10.15
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-        
-      - run: mono --version
-      
-        
-      - name: workspace
-        run: |
-          echo "$github.workspace"
-          pwd
-        
+        uses: actions/checkout@v2       
 
           
       - name: Nuget restore
@@ -97,7 +90,7 @@ jobs:
           path: binaries/UItest/bin/Release/screenshots
    
   iOS-UItest:
-    runs-on: macos-10.15
+    runs-on: macos-latest
     needs: Build
     steps:
       - name: Checkout
