@@ -81,14 +81,14 @@ jobs:
           key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
   
       - uses: malinskiy/action-android/install-sdk@release/0.1.1
-      - run: sdkmanager "platform-tools" "platforms;android-28"
+      - run: sdkmanager "platform-tools" "platforms;android-29"
       - run: sdkmanager "build-tools;30.0.2"
         
       - name: Android UItest
         uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
         with:
             cmd: mono ${{ env.NUNIT_CONSOLE }} binaries/UItest/bin/Release/UItest.dll --where "test =~ Android"
-            api: 28
+            api: 29
             tag: default
             abi: x86   
             verbose: false
