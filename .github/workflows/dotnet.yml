@@ -53,7 +53,7 @@ jobs:
       - name: Android UItest
         uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
         with:
-            cmd: mono ${{ env.NUNIT_CONSOLE }} binaries/UItest/bin/Release/UItest.dll --where "test =~ Android"
+            cmd: mono ${{ env.NUNIT_CONSOLE }} App1/UItest/bin/Release/UItest.dll --where "test =~ Android"
             api: 29
             tag: default
             abi: x86   
@@ -98,7 +98,7 @@ jobs:
         run: mono ${{ env.NUGET_EXE }} install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
       
       - name: UITest iOS
-        run: mono ${{ env.NUNIT_CONSOLE }} binaries/UItest/bin/Release/UItest.dll --where "test =~ iOS"
+        run: mono ${{ env.NUNIT_CONSOLE }} App1/UItest/bin/Release/UItest.dll --where "test =~ iOS"
 
       - uses: actions/upload-artifact@v2.2.1
         with:
