@@ -11,6 +11,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2  
         
+      - name: mono
+        run: which mono
+        
       - name: Cache ./nuget/packages
         uses: actions/cache@v2
         with:
