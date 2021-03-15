@@ -6,7 +6,7 @@ env:
   NUNIT_CONSOLE: /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe
 jobs: 
   Build:
-    runs-on: macos-latest
+    runs-on: macos-10.15
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -60,7 +60,7 @@ jobs:
           
           
   Android-UItest:
-    runs-on: macos-latest
+    runs-on: macos-10.15
     needs: Build
     steps:
       - name: Checkout
