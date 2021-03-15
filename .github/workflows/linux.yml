@@ -6,60 +6,10 @@ env:
   NUNIT_CONSOLE: /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe
 jobs: 
   Build:
-    runs-on: ubuntu-18.04
+    runs-on: macos-10.15
     steps:
       - name: Checkout
         uses: actions/checkout@v2  
         
       - name: mono
-        run: | 
-          which mono
-          sudo apt install mono-complete nuget
-        
-      - name: Cache ./nuget/packages
-        uses: actions/cache@v2
-        with:
-          path: | 
-            ~/.nuget/packages
-            !~/.nuget/packages/unwanted
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/**/*.csproj') }}-${{ hashFiles('**/**/**/*.csproj') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
-          
-      - name: Nuget restore
-        run: nuget restore App1/App1.sln
-        
-      - name: Cache NUnit.Console
-        id: nunit-console
-        uses: actions/cache@v2
-        with:
-          path: ./NUnit.ConsoleRunner.${{ env.NUNIT_CONSOLE_VERSION }}
-          key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
-        
-      - name: Download NUnit-Console
-        run: nuget install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
-        
-      - name: Cache binaries
-        id: binaries
-        uses: actions/cache@v2
-        env:
-          key: "${GITHUB_SHA}-${GITHUB_RUN_ID}"
-        with:
-          path: ./binaries
-          key: ${{ github.sha }}-${{ github.run_id }}
-      
-      - name: Build iOS bundle
-        run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Debug /p:Platform=iPhoneSimulator /verbosity:normal /t:Rebuild
-        
-      - name: Build .Apk
-        run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release /verbosity:normal
-      
-      - name: Build UItest
-        run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
-        
-      - name: Create binaries
-        run: |
-          mkdir binaries
-          mv App1/UItest/ binaries
-          mv App1/App1/App1.Android/bin/Release/com.companyname.app1.apk binaries
-          mv App1/App1/App1.iOS binaries
+        run: emulator -list-avds
