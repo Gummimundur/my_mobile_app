@@ -13,4 +13,4 @@ jobs:
         
 
       - run: |
-          sdkmanager --list | grep system-images
+          ls /usr/local/lib/android/sdk/cmdline-tools/version/bin
