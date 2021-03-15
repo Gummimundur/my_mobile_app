@@ -36,7 +36,7 @@ jobs:
           key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
         
       - name: Download NUnit-Console
-        run: mono nuget install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
+        run: nuget install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
         
       - name: Cache binaries
         id: binaries
