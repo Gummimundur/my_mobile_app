@@ -14,6 +14,7 @@ jobs:
       - name: mono
         run: | 
           which mono
+          sudo apt install mono-complete nuget
         
       - name: Cache ./nuget/packages
         uses: actions/cache@v2
