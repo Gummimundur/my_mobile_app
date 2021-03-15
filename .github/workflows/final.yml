@@ -1,7 +1,7 @@
 name: CI final
 on: 
   schedule:
-  - cron: '*/5 * * * *'
+  - cron: '*/30 * * * *'
 env:
   NUNIT_CONSOLE_VERSION: 3.12.0
   NUGET_EXE: /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe
