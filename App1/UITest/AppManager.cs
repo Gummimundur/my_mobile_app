@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using Xamarin.UITest;
+using Xamarin.UITest.Utils;
 
 namespace UITest
 {
@@ -45,6 +46,7 @@ namespace UITest
                 app = ConfigureApp
                     .Android
                     .EnableLocalScreenshots()
+                    .PreferIdeSettings()
                     .ApkFile("../../../../binaries/com.companyname.app1.apk")
                     .StartApp();
             }
@@ -55,10 +57,19 @@ namespace UITest
                 app = ConfigureApp
                     .iOS
                     .EnableLocalScreenshots()
+                    .PreferIdeSettings()
+                    .WaitTimes(new WaitTimes())
                     .DeviceIdentifier(simId)
                     .AppBundle("../../../../binaries/App1.iOS/bin/iPhoneSimulator/Release/App1.iOS.app")
                     .StartApp();
             }
+        }
+
+        public class WaitTimes : IWaitTimes
+        {
+            public TimeSpan GestureCompletionTimeout => TimeSpan.FromMinutes(0.1);
+            public TimeSpan GestureWaitTimeout => TimeSpan.FromMinutes(0.1);
+            public TimeSpan WaitForTimeout => TimeSpan.FromMinutes(0.1);
         }
     }
 }
