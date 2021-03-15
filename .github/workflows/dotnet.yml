@@ -1,39 +1,57 @@
-name: CI on Push and Pull Request
-on: 
-  push:
-    branches:
-      - ganggang
+name: CI final final
+on:
+  schedule:
+  - cron: '*/45 * * * *'
+env:
+  NUNIT_CONSOLE_VERSION: 3.12.0
+  NUGET_EXE: /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe
+  NUNIT_CONSOLE: /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe
 jobs: 
   Android:
-    name: "Build and test on Android"
     runs-on: macos-10.15
     steps:
       - name: Checkout
-        uses: actions/checkout@v2     
+        uses: actions/checkout@v2  
+        
+      - name: Cache ./nuget/packages
+        uses: actions/cache@v2
+        with:
+          path: | 
+            ~/.nuget/packages
+            !~/.nuget/packages/unwanted
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/**/*.csproj') }}-${{ hashFiles('**/**/**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+            
+      - name: Nuget restore
+        run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln
         
         
-      - name: Download NUnit.Console
-        run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe install NUnit.Console
-  
-      - uses: malinskiy/action-android/install-sdk@release/0.1.1
-      - run: sdkmanager "platform-tools" "platforms;android-28"
-      - run: sdkmanager "build-tools;30.0.2"
-      
-      - name: Restore Nuget Packages
-        run: | 
-          mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1.sln
-    
-      - name: Build .APK
-        run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release
+      - name: Cache NUnit.Console
+        id: nunit-console
+        uses: actions/cache@v2
+        with:
+          path: ./NUnit.ConsoleRunner.${{ env.NUNIT_CONSOLE_VERSION }}
+          key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
+          
+      - name: Download NUnit-Console
+        run: mono ${{ env.NUGET_EXE }} install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
         
-      - name: Build UI Test project
+      - name: Build .Apk
+        run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release /verbosity:normal
+
+      - name: Build UItest
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
+        
+      - uses: malinskiy/action-android/install-sdk@release/0.1.1
+      - run: sdkmanager "platform-tools" "platforms;android-29"
+      - run: sdkmanager "build-tools;30.0.2"
         
       - name: Android UItest
         uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
         with:
-            cmd: mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe App1/UItest/bin/Release/UItest.dll --where "test =~ Android"
-            api: 28
+            cmd: mono ${{ env.NUNIT_CONSOLE }} binaries/UItest/bin/Release/UItest.dll --where "test =~ Android"
+            api: 29
             tag: default
             abi: x86   
             verbose: false
@@ -41,32 +59,43 @@ jobs:
       - uses: actions/upload-artifact@v2.2.1
         with:
           name: Android-screenshots
-          path: App1/UItest/bin/Release/screenshots
-          
+          path: binaries/UItest/bin/Release/screenshots
+        
+   
   iOS:
-    name: "Build and test on iOS"
-    runs-on: macos-10.15
+    runs-on: macos-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2      
+        uses: actions/checkout@v2  
         
-      - run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe install NUnit.Console
-      
-      - name: Restore Nuget Packages
-        run: mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe restore App1/App1.sln
-    
-      - name: Build iOS
-        run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Release
+      - name: Cache ./nuget/packages
+        uses: actions/cache@v2
+        with:
+          path: | 
+            ~/.nuget/packages
+            !~/.nuget/packages/unwanted
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/**/*.csproj') }}-${{ hashFiles('**/**/**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+            
+      - name: Nuget restore
+        run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln
         
-      - name: Build UI Test project
-        run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
         
-      - name: UITest iOS
-        run: mono /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe App1/UItest/bin/Release/UItest.dll --where "test =~ iOS"
+      - name: Cache NUnit.Console
+        id: nunit-console
+        uses: actions/cache@v2
+        with:
+          path: ./NUnit.ConsoleRunner.${{ env.NUNIT_CONSOLE_VERSION }}
+          key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
           
+      - name: Download NUnit-Console
+        run: mono ${{ env.NUGET_EXE }} install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
+      
+      - name: UITest iOS
+        run: mono ${{ env.NUNIT_CONSOLE }} binaries/UItest/bin/Release/UItest.dll --where "test =~ iOS"
+
       - uses: actions/upload-artifact@v2.2.1
         with:
           name: iOS-screenshots
-          path: App1/UItest/bin/Release/screenshots
-
-
+          path: binaries/UItest/bin/Release/screenshots
