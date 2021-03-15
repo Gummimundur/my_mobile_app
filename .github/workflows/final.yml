@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2  
+        with:
+          ref: improved
         
       - name: mono
         run: which mono
@@ -73,6 +75,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2  
+        with:
+         ref: improved 
         
       - name: Cache ./nuget/packages
         uses: actions/cache@v2
