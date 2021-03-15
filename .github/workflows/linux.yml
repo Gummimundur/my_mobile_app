@@ -17,7 +17,7 @@ jobs:
           
       - name: what is in mono
         run: |
-          ls  /usr/bin/mono/
+          ls  /usr/bin/mono
         
       - name: Cache ./nuget/packages
         uses: actions/cache@v2
