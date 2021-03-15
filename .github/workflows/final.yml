@@ -13,7 +13,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2  
         
-        
+      - name: mono
+        run: which mono
       - name: Workflow name
         run: echo ${{ github.workflow }}
         
