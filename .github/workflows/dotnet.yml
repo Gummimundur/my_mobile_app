@@ -96,6 +96,9 @@ jobs:
           
       - name: Download NUnit-Console
         run: mono ${{ env.NUGET_EXE }} install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
+        
+      - name: Build UItest
+        run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
       
       - name: UITest iOS
         run: mono ${{ env.NUNIT_CONSOLE }} App1/UItest/bin/Release/UItest.dll --where "test =~ iOS"
