@@ -10,10 +10,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2  
-            
-      - name: Nuget restore
-        run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln
-        
-      - run: ls ~/.nuget/packages
       
       - run: nuget restore App1/App1.sln
+      
+      - run: nuget install NUnit.Console
