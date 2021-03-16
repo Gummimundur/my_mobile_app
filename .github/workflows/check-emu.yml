@@ -5,4 +5,6 @@ jobs:
     runs-on: macos-10.15
     steps:
       - name: list avd
-        run: emulator -list-avds
+        run: |
+          echo "ANDROID_HOME=/Users/runner/android/sdk" >> $GITHUB_ENV
+          emulator -list-avds
