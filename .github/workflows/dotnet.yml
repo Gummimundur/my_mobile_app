@@ -28,8 +28,6 @@ jobs:
       - name: Nuget restore
         run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln
         
-      - run: ls ~/.nuget/packages/nunit.console/3.12.0
-        
       - name: Cache NUnit.Console
         id: nunit-console
         uses: actions/cache@v2
