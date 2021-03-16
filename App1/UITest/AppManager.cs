@@ -45,7 +45,6 @@ namespace UITest
                 app = ConfigureApp
                     .Android
                     .EnableLocalScreenshots()
-                    .PreferIdeSettings()
                     .ApkFile("../../../App1/App1.Android/bin/Release/com.companyname.app1.apk")
                     .StartApp();
             }
