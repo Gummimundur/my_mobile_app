@@ -99,12 +99,12 @@ jobs:
       
       - name: check dir
         run: |
-          ls ./App1/App1.iOS/bin/iPhoneSimulator/Debug
+          ls ./App1/App1/App1.iOS/bin/iPhoneSimulator/Debug
       
       - name: Simulator
         run: |
-          xcrun simctl install 13D49245-F338-460D-902A-4B993359ACDC ./App1/App1.iOS/bin/iPhoneSimulator/Debug/App1.iOS.app
-          xcrun simctl launch 13D49245-F338-460D-902A-4B993359ACDC ./App1/App1.iOS/bin/iPhoneSimulator/Debug/com.companyname.App1
+          xcrun simctl install 13D49245-F338-460D-902A-4B993359ACDC ./App1/App1/App1.iOS/bin/iPhoneSimulator/Debug/App1.iOS.app
+          xcrun simctl launch 13D49245-F338-460D-902A-4B993359ACDC ./App1/App1/App1.iOS/bin/iPhoneSimulator/Debug/com.companyname.App1
         
       - name: Build UItest
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
