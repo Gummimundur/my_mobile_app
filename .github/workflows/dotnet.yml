@@ -20,10 +20,9 @@ jobs:
         with:
           path: | 
             ~/.nuget/packages
-            !~/.nuget/packages/unwanted
-          key: ${{ runner.os }}-nuget-android-${{ hashFiles('**/**/*.csproj') }}-${{ hashFiles('**/**/**/*.csproj') }}
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/**/*.csproj') }}-${{ hashFiles('**/**/**/*.csproj') }}
           restore-keys: |
-            ${{ runner.os }}-nuget-android-
+            ${{ runner.os }}-nuget
             
       - name: Nuget restore
         run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln
@@ -99,10 +98,9 @@ jobs:
         with:
           path: | 
             ~/.nuget/packages
-            !~/.nuget/packages/unwanted
-          key: ${{ runner.os }}-nuget-ios-${{ hashFiles('**/**/*.csproj') }}-${{ hashFiles('**/**/**/*.csproj') }}
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/**/*.csproj') }}-${{ hashFiles('**/**/**/*.csproj') }}
           restore-keys: |
-            ${{ runner.os }}-nuget-ios-
+            ${{ runner.os }}-nuget-
             
       - name: Nuget restore
         run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln
