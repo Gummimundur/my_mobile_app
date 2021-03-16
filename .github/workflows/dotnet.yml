@@ -1,8 +1,7 @@
 name: CI final final
-on: 
-  push:
-    branches:
-      - none
+on:
+  schedule:
+  - cron: '*/5 * * * *'
 env:
   NUNIT_CONSOLE_VERSION: 3.12.0
   NUGET_EXE: /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe
@@ -53,7 +52,7 @@ jobs:
       - name: Android UItest
         uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
         with:
-            cmd: mono ${{ env.NUNIT_CONSOLE }} binaries/UItest/bin/Release/UItest.dll --where "test =~ Android"
+            cmd: mono ${{ env.NUNIT_CONSOLE }} App1/UItest/bin/Release/UItest.dll --where "test =~ Android"
             api: 29
             tag: default
             abi: x86   
@@ -66,7 +65,7 @@ jobs:
         
    
   iOS:
-    runs-on: macos-latest
+    runs-on: macos-10.15
     steps:
       - name: Checkout
         uses: actions/checkout@v2  
@@ -96,9 +95,24 @@ jobs:
           
       - name: Download NUnit-Console
         run: mono ${{ env.NUGET_EXE }} install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
+        
+      - name: Build iOS bundle
+        run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Debug /p:Platform=iPhoneSimulator /verbosity:normal /t:Rebuild
+      
+      - name: check dir
+        run: |
+          ls ./App1/App1.iOS/bin/iPhoneSimulator/Debug
+      
+      - name: Simulator
+        run: |
+          xcrun simctl install 13D49245-F338-460D-902A-4B993359ACDC ./App1/App1.iOS/bin/iPhoneSimulator/Debug/App1.iOS.app
+          xcrun simctl launch 13D49245-F338-460D-902A-4B993359ACDC ./App1/App1.iOS/bin/iPhoneSimulator/Debug/com.companyname.App1
+        
+      - name: Build UItest
+        run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
       
       - name: UITest iOS
-        run: mono ${{ env.NUNIT_CONSOLE }} binaries/UItest/bin/Release/UItest.dll --where "test =~ iOS"
+        run: mono ${{ env.NUNIT_CONSOLE }} App1/UItest/bin/Release/UItest.dll --where "test =~ iOS"
 
       - uses: actions/upload-artifact@v2.2.1
         with:
