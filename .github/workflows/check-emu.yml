@@ -4,9 +4,6 @@ jobs:
   Android:
     runs-on: macos-10.15
     steps:
-      - name: list avd
-        run: |
-          ls /Users/runner/Library/Android/sdk
-          ls /Users/runner/Library/Android/sdk**
-          
+      - run: ls /Users/runner/Library/Android/sdk/tools
+      - run: ls /Users/runner/Library/Android/sdk/tools/**
           
