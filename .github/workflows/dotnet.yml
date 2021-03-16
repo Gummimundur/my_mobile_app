@@ -47,9 +47,31 @@ jobs:
       - name: Build UItest
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
         
-      - uses: malinskiy/action-android/install-sdk@release/0.1.1
-      - run: sdkmanager "platform-tools"
-      - run: sdkmanager "build-tools;30.0.2"
+      - name: Cache Android sdk
+        id: sdk-android
+        uses: actions/cache@v2
+        with:
+          path: /Users/runner/android-sdk
+          key: ${{ runner.os }}-android-sdk
+          restore-keys: |
+            ${{ runner.os }}-android-sdk
+            
+      - name: Set android env variables
+        if: steps.sdk-android.outputs.cache-hit == 'true'
+        run: |
+          echo "{ANDROID_HOME}={/Users/runner/android-sdk}" >> $GITHUB_ENV
+          echo "{ANDROID_SDK_ROOT}={Users/runner/android-sdk}" >> $GITHUB_ENV
+          echo "{ANDROID_SDK_HOME}={Users/runner/android-sdk/sdk_home}" >> $GITHUB_ENV
+
+      - name: Install android sdk 
+        if: steps.sdk-android.outputs.cache-hit != 'true'
+        uses: malinskiy/action-android/install-sdk@release/0.1.1
+       
+      - name: Install android tools
+        if: steps.sdk-android.outputs.cache-hit != 'true'
+        run: |
+          sdkmanager "platform-tools"
+          sdkmanager "build-tools;30.0.2"
         
       - name: Android UItest
         uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
