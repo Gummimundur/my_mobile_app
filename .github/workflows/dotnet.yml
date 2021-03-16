@@ -103,7 +103,7 @@ jobs:
       
       - name: Simulator
         run: |
-          /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator -CurrentDeviceUDID 13D49245-F338-460D-902A-4B993359ACDC
+          xcrun simctl boot 13D49245-F338-460D-902A-4B993359ACDC
           xcrun simctl install 13D49245-F338-460D-902A-4B993359ACDC ./App1/App1/App1.iOS/bin/iPhoneSimulator/Debug/App1.iOS.app
           xcrun simctl launch 13D49245-F338-460D-902A-4B993359ACDC com.companyname.App1
         
