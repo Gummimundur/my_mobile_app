@@ -83,7 +83,7 @@ jobs:
       - uses: actions/upload-artifact@v2.2.1
         with:
           name: Android-screenshots
-          path: binaries/UItest/bin/Release/screenshots
+          path: App1/binaries/UItest/bin/Release/screenshots
         
    
   iOS:
@@ -141,4 +141,4 @@ jobs:
       - uses: actions/upload-artifact@v2.2.1
         with:
           name: iOS-screenshots
-          path: binaries/UItest/bin/Release/screenshots
+          path: App1/UItest/bin/Release/screenshots
