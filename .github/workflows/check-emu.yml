@@ -6,4 +6,4 @@ jobs:
     steps:
       - name: list avd
         run: |
-          Users/runner/Library/Android/sdk/tools/android avd
+          ls Users/runner/Library/Android/sdk/
