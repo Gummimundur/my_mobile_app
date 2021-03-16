@@ -49,6 +49,7 @@ jobs:
         
       - uses: malinskiy/action-android/install-sdk@release/0.1.1
       - run: sdkmanager "platform-tools"
+      - run: sdkmanager "build-tools;30.0.2"
         
       - name: Android UItest
         uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
