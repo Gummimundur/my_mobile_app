@@ -28,6 +28,7 @@ jobs:
       - name: Nuget restore
         run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln
         
+      - run: ls ~/.nuget/packages
         
       - name: Cache NUnit.Console
         id: nunit-console
@@ -37,6 +38,7 @@ jobs:
           key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
           
       - name: Download NUnit-Console
+        if: steps.nunit-console.outputs.cache-hit != 'true'
         run: mono ${{ env.NUGET_EXE }} install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
         
       - name: Build .Apk
@@ -94,6 +96,7 @@ jobs:
           key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
           
       - name: Download NUnit-Console
+        if: steps.nunit-console.outputs.cache-hit != 'true'
         run: mono ${{ env.NUGET_EXE }} install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
         
       - name: Build iOS bundle
