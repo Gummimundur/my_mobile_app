@@ -10,5 +10,6 @@ jobs:
       
       - name: List avd
         run: |
-          /Users/runner/Library/Android/sdk/tools/bin/avdmanager create avd --force --name myTestDevice --abi google_apis/x86 --package 'system-images;android-29;google_apis;x86 ' --device "myTestDevice"
+          /Users/runner/Library/Android/sdk/tools/bin/sdkmanager 'system-images;android-29;google_apis;x86'
+          /Users/runner/Library/Android/sdk/tools/bin/avdmanager create avd --force --name myTestDevice --abi google_apis/x86 --package 'system-images;android-29;google_apis;x86' --device "myTestDevice"
           /Users/runner/Library/Android/sdk/tools/bin/emulator -list-avds
