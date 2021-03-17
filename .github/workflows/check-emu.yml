@@ -25,11 +25,10 @@ jobs:
       - name: what
         run: ls $HOME/.android/avd
         
-      - name: copy
-        run: cp $HOME/.android/avd/* $ANDROID_SDK_HOME/avd
+
       
       - name: list
         run: ls $ANDROID_SDK_HOME/avd
         
       - name: start emulator
-        run: /Users/runner/Library/Android/sdk/emulator/emulator -avd @pixel_9.0
+        run: /Users/runner/Library/Android/sdk/emulator/emulator @pixel_9.0
