@@ -1,7 +1,5 @@
 name: CI final
-on:
-  schedule:
-  - cron: '30 1/2 * * *'
+on: push
 env:
   NUNIT_CONSOLE_VERSION: 3.12.0
   NUGET_EXE: /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe
@@ -122,16 +120,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2  
-      
-      - name: Cache ./nuget/packages
-        uses: actions/cache@v2
-        with:
-          path: | 
-            ~/.nuget/packages
-            !~/.nuget/packages/unwanted
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/**/*.csproj') }}-${{ hashFiles('**/**/**/*.csproj') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
           
       - name: Cache binaries
         id: binaries
