@@ -2,32 +2,28 @@ name: Check
 on: push
 jobs: 
   Android:
-    runs-on: ubuntu-18.04
+    runs-on: macos-10.15
     steps:
+          
       - name: Accept licenses
-        run: yes | /usr/local/lib/android/sdk/tools/bin/sdkmanager --licenses &
+        run: yes | /Users/runner/Library/Android/sdk/tools/bin/sdkmanager --licenses &
       
       - name: Download emu
-        if: steps.emulator.outputs.cache-hit != 'true'
         run: |
-          cd /usr/local/lib/android/sdk/tools/bin
+          cd /Users/runner/Library/Android/sdk/tools/bin
           ./sdkmanager 'system-images;android-25;google_apis;x86'
           echo "no" | ./avdmanager --verbose create avd --force --name "pixel_9.0" --device "pixel" --package "system-images;android-25;google_apis;x86" --tag "google_apis" --abi "x86"
           
-       
+      - name: list avd
+        run: emulator -list-avds
+        
       - name: list 2
-        run: | 
-          /usr/local/lib/android/sdk/tools/emulator -list-avds
-          echo "\n"
-          ls /usr/local/lib/android/sdk/tools/
-          echo "\n"
-          ls /usr/local/lib/android/sdk/tools/**
-   
+        run: /Users/runner/Library/Android/sdk/tools/emulator -list-avds
+        
+      - name: what
+        run: |
+          ls $HOME/.android/avd
+    
 
       - name: start emulator
-        run: /usr/local/lib/android/sdk/tools/emulator @pixel_9.0
-
-        
-        
-
-
+        run: /Users/runner/Library/Android/sdk/emulator/emulator @pixel_9.0 & /Users/runner/Library/Android/sdk/tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
