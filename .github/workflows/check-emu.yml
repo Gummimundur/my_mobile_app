@@ -2,26 +2,15 @@ name: Check
 on: push
 jobs: 
   Android:
-    runs-on: macos-10.15
+    runs-on: ubuntu-18.04
     steps:
-    
-      - name: Cache emulator
-        uses: actions/cache@v2
-        id: emulator
-        with:
-          path: |
-            /Users/runner/.android/avd
-            /Users/runner/Library/Android/sdk
-          key: ${{ runner.os }}-pixel_9.0-
-          
       - name: Accept licenses
-        if: steps.emulator.outputs.cache-hit != 'true'
-        run: yes | /Users/runner/Library/Android/sdk/tools/bin/sdkmanager --licenses &
+        run: yes | /usr/local/lib/android/sdk/tools/bin/sdkmanager --licenses &
       
       - name: Download emu
         if: steps.emulator.outputs.cache-hit != 'true'
         run: |
-          cd /Users/runner/Library/Android/sdk/tools/bin
+          cd /usr/local/lib/android/sdk/tools/bin
           ./sdkmanager 'system-images;android-25;google_apis;x86'
           echo "no" | ./avdmanager --verbose create avd --force --name "pixel_9.0" --device "pixel" --package "system-images;android-25;google_apis;x86" --tag "google_apis" --abi "x86"
           
@@ -29,7 +18,7 @@ jobs:
         run: emulator -list-avds
         
       - name: list 2
-        run: /Users/runner/Library/Android/sdk/tools/emulator -list-avds
+        run: /usr/local/lib/android/sdk/tools/emulator -list-avds
         
       - name: what
         run: |
@@ -37,8 +26,7 @@ jobs:
     
 
       - name: start emulator
-        if: steps.emulator.outputs.cache-hit == 'true'
-        run: /Users/runner/Library/Android/sdk/emulator/emulator @pixel_9.0
+        run: /usr/local/lib/android/sdk/emulator/emulator @pixel_9.0
 
         
         
