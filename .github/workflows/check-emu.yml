@@ -67,12 +67,11 @@ jobs:
 
       - name: Build UItest
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
-        
-      - name: Make sure emulator is up and running
-        run: /Users/runner/Library/Android/sdk/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
-        
+    
       - name: Run UItest
-        run: mono ${{ env.NUNIT_CONSOLE }} App1/UItest/bin/Release/UItest.dll --where "test =~ Android"
+        run: | 
+          /Users/runner/Library/Android/sdk/emulator/emulator @pixel_9.0 -no-snapshot-save -noaudio -no-boot-anim & /Users/runner/Library/Android/sdk/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
+          mono ${{ env.NUNIT_CONSOLE }} App1/UItest/bin/Release/UItest.dll --where "test =~ Android"
         
       - uses: actions/upload-artifact@v2.2.1
         with:
