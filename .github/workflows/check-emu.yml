@@ -11,5 +11,5 @@ jobs:
       - name: List avd
         run: |
           echo "ANDROID_SDK_HOME=Users/runner/Library/Android/sdk/tools" >> $GITHUB_ENV
-          /Users/runner/Library/Android/sdk/tools/bin/avdmanager list avd
+          /Users/runner/Library/Android/sdk/tools/emulator -list-avds
           
