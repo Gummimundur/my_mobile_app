@@ -31,7 +31,7 @@ jobs:
           ls $HOME/.android/avd
 
       - name: start emulator
-        run: /Users/runner/Library/Android/sdk/emulator/emulator @pixel_9.0 & /Users/runner/Library/Android/sdk/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
+        run: /Users/runner/Library/Android/sdk/emulator/emulator @pixel_9.0 -no-snapshot-save -noaudio -no-boot-anim & /Users/runner/Library/Android/sdk/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
 
       - name: Cache ./nuget/packages
         uses: actions/cache@v2
