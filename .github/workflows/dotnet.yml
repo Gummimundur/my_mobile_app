@@ -125,9 +125,9 @@ jobs:
       - name: Simulator
         run: |
           xcrun simctl list
-          xcrun simctl boot 13D49245-F338-460D-902A-4B993359ACDC
-          xcrun simctl install 13D49245-F338-460D-902A-4B993359ACDC ./App1/App1/App1.iOS/bin/iPhoneSimulator/Debug/App1.iOS.app
-          xcrun simctl launch 13D49245-F338-460D-902A-4B993359ACDC com.companyname.App1
+          xcrun simctl boot F0EDD684-301D-4C73-9E92-8E6EE95AFFE5
+          xcrun simctl install F0EDD684-301D-4C73-9E92-8E6EE95AFFE5 ./App1/App1/App1.iOS/bin/iPhoneSimulator/Debug/App1.iOS.app
+          xcrun simctl launch F0EDD684-301D-4C73-9E92-8E6EE95AFFE5 com.companyname.App1
         
       - name: Build UItest
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
