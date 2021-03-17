@@ -10,6 +10,5 @@ jobs:
       
       - name: List avd
         run: |
-          echo "ANDROID_SDK_HOME=Users/runner/Library/Android/sdk/tools" >> $GITHUB_ENV
-          /Users/runner/Library/Android/sdk/tools/emulator -list-avds
-          
+          /Users/runner/Library/Android/sdk/tools/bin/avdmanager create avd --force --name myTestDevice --abi google_apis/x86 --package 'system-images;android-29;google_apis;x86 ' --device "myTestDevice"
+          /Users/runner/Library/Android/sdk/tools/bin/emulator -list-avds
