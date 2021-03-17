@@ -130,7 +130,7 @@ jobs:
           xcrun simctl launch F0EDD684-301D-4C73-9E92-8E6EE95AFFE5 com.companyname.App1
           
       - name: Install mono cecil
-        run: mono ${{ env.NUGET_EXE }} install Mono.Cecil --version 0.9.6.0
+        run: mono ${{ env.NUGET_EXE }} install Mono.Cecil -Version 0.9.6.0
         
       - name: Build UItest
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
