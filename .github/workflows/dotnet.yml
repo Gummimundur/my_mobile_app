@@ -103,6 +103,11 @@ jobs:
       - name: Nuget restore
         run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln
         
+      - name: Setup .NET Core 3.1
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+        
         
       - name: Cache NUnit.Console
         id: nunit-console
