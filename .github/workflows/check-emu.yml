@@ -9,8 +9,8 @@ jobs:
         uses: actions/cache@v2
         id: emulator
         with:
-          path: $ANDROID_SDK_HOME/avd
-          key: ${{ runner.os }}-pixel_9.0
+          path: $ANDROID_SDK_HOME/.android/avd
+          key: ${{ runner.os }}-pixel_9.0-
           
       - name: Accept licenses
         if: steps.emulator.outputs.cache-hit != 'true'
@@ -32,6 +32,4 @@ jobs:
       - name: what
         run: ls $HOME/.android/avd
 
-        
-      - name: start emulator
-        run: /Users/runner/Library/Android/sdk/emulator/emulator @pixel_9.0
+
