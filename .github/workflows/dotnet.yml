@@ -137,6 +137,9 @@ jobs:
       - name: Install mono cecil
         run: mono ${{ env.NUGET_EXE }} install Mono.Cecil -Version 0.9.6.0
         
+      - name: Install mono cecil
+        run: mono ${{ env.NUGET_EXE }} install NUnit3TestAdapter 
+        
       - name: Build UItest
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
       
