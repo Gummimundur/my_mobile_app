@@ -22,10 +22,7 @@ jobs:
       - name: list 2
         run: /Users/runner/Library/Android/sdk/tools/emulator -list-avds
         
-      - name: add to path
-        run: | 
-          echo "/Users/runner/Library/Android/sdk/tools/emulator" >> $GITHUB_PATH
-          echo "/Users/runner/Library/Android/sdk/tools/" >> $GITHUB_PATH
+
         
       - name: start emulator
-        run: /Users/runner/Library/Android/sdk/tools/emulator -avd @pixel_9.0
+        run: /Users/runner/Library/Android/sdk/emulator/emulator -avd @pixel_9.0
