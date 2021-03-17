@@ -11,7 +11,9 @@ jobs:
     
       - name: Checkout
         uses: actions/checkout@v2
-          
+        with:
+            ref: improved          
+
       - name: Accept licenses
         run: yes | /Users/runner/Library/Android/sdk/tools/bin/sdkmanager --licenses &
         
