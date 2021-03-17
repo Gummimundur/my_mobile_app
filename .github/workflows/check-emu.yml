@@ -16,7 +16,10 @@ jobs:
           
        
       - name: list 2
-        run: /usr/local/lib/android/sdk/tools/emulator -list-avds
+        run: | 
+          /usr/local/lib/android/sdk/tools/emulator -list-avds
+          /usr/local/lib/android/sdk/
+          /usr/local/lib/android/sdk/emulator
    
 
       - name: start emulator
