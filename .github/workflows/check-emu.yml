@@ -7,8 +7,10 @@ jobs:
           
       - name: Accept licenses
         run: yes | /Users/runner/Library/Android/sdk/tools/bin/sdkmanager --licenses &
+        
       - name: ls
         run: ls /Users/runner/Library/Android/sdk/tools/bin
+      
       - name: Download emu
         run: |
           cd /Users/runner/Library/Android/sdk/tools/bin
