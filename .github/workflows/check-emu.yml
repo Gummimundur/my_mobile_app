@@ -11,7 +11,7 @@ jobs:
         with:
           path: |
             /Users/runner/.android/avd
-            /Users/runner/Library/Android/sdk/tools/
+            /Users/runner/Library/Android/sdk/
           key: ${{ runner.os }}-pixel_9.0-
           
       - name: Accept licenses
