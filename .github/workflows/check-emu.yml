@@ -17,7 +17,7 @@ jobs:
        
       - name: list 2
         run: | 
-          ls/usr/local/lib/android/sdk/tools/emulator -list-avds
+          /usr/local/lib/android/sdk/tools/emulator -list-avds
           echo "\n"
           ls /usr/local/lib/android/sdk/
           echo "\n"
