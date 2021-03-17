@@ -24,11 +24,7 @@ jobs:
         
       - name: what
         run: ls $HOME/.android/avd
-        
 
-      
-      - name: list
-        run: ls $ANDROID_SDK_HOME/avd
         
       - name: start emulator
         run: /Users/runner/Library/Android/sdk/emulator/emulator @pixel_9.0
