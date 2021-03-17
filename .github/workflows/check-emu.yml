@@ -8,7 +8,7 @@ jobs:
       - run: ls /Users/runner/Library/Android/sdk/tools/bin/sdkmanager
       - run: /Users/runner/Library/Android/sdk/tools/bin/sdkmanager --list
       
-      - run: yes | ./Users/runner/Library/Android/sdk/tools/binsdkmanager --licenses &
+      - run: yes | /Users/runner/Library/Android/sdk/tools/bin/sdkmanager --licenses &
       
       - name: List avd
         run: |
