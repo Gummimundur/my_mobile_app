@@ -1,7 +1,5 @@
 name: Improved
-on: 
-  schedule:
-  - cron: '30 0/2 * * *'
+on: push
 env:
   NUNIT_CONSOLE_VERSION: 3.12.0
   NUGET_EXE: /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe
@@ -130,6 +128,9 @@ jobs:
           xcrun simctl boot F0EDD684-301D-4C73-9E92-8E6EE95AFFE5
           xcrun simctl install F0EDD684-301D-4C73-9E92-8E6EE95AFFE5 ./App1/App1/App1.iOS/bin/iPhoneSimulator/Debug/App1.iOS.app
           xcrun simctl launch F0EDD684-301D-4C73-9E92-8E6EE95AFFE5 com.companyname.App1
+          
+      - name: Install mono cecil
+        run: mono ${{ env.NUGET_EXE }} install Mono.Cecil
         
       - name: Build UItest
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
