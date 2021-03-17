@@ -7,4 +7,9 @@ jobs:
       - run: ls /Users/runner/Library/Android/sdk/tools
       - run: ls /Users/runner/Library/Android/sdk/tools/bin/sdkmanager
       - run: /Users/runner/Library/Android/sdk/tools/bin/sdkmanager --list
+      
+      - name: List avd
+        run: |
+          echo "ANDROID_SDK_HOME=Users/runner/Library/Android/sdk" >> $GITHUB_ENV
+          emulator -list-avds
           
