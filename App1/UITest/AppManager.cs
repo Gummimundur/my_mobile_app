@@ -51,7 +51,7 @@ namespace UITest
 
             if (Platform == Platform.iOS)
             {
-                const string simId = "13D49245-F338-460D-902A-4B993359ACDC";
+                const string simId = "F0EDD684-301D-4C73-9E92-8E6EE95AFFE5";
                 app = ConfigureApp
                     .iOS
                     .EnableLocalScreenshots()
