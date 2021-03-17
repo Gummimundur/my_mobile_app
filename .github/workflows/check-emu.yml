@@ -11,9 +11,7 @@ jobs:
         with:
           path: |
             /Users/runner/.android/avd
-            /Users/runner/Library/Android/sdk/tools/bin/avdmanager
-            /Users/runner/Library/Android/sdk/tools/bin/sdkmanager
-            /Users/runner/Library/Android/sdk/tools/emulator
+            /Users/runner/Library/Android/sdk/tools/
           key: ${{ runner.os }}-pixel_9.0-
           
       - name: Accept licenses
@@ -39,6 +37,7 @@ jobs:
     
 
       - name: start emulator
+        if: steps.emulator.outputs.cache-hit == 'true'
         run: /Users/runner/Library/Android/sdk/emulator/emulator @pixel_9.0
 
         
