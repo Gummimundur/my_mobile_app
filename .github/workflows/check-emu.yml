@@ -7,7 +7,8 @@ jobs:
           
       - name: Accept licenses
         run: yes | /Users/runner/Library/Android/sdk/tools/bin/sdkmanager --licenses &
-      
+      - name: ls
+        run: ls /Users/runner/Library/Android/sdk/tools/bin
       - name: Download emu
         run: |
           cd /Users/runner/Library/Android/sdk/tools/bin
@@ -26,4 +27,4 @@ jobs:
     
 
       - name: start emulator
-        run: /Users/runner/Library/Android/sdk/emulator/emulator @pixel_9.0 & /Users/runner/Library/Android/sdk/tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
+        run: /Users/runner/Library/Android/sdk/emulator/emulator @pixel_9.0 & /Users/runner/Library/Android/sdk/tools/bin/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
