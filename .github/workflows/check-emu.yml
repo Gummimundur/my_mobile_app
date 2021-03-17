@@ -19,11 +19,9 @@ jobs:
         run: | 
           /usr/local/lib/android/sdk/tools/emulator -list-avds
           echo "\n"
-          ls /usr/local/lib/android/sdk/
+          ls /usr/local/lib/android/sdk/tools/
           echo "\n"
-          ls /usr/local/lib/android/sdk/emulator
-          echo "\n"
-          ls /usr/local/lib/android/sdk/emulator/**
+          ls /usr/local/lib/android/sdk/tools/**
    
 
       - name: start emulator
