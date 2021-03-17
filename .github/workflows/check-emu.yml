@@ -20,7 +20,7 @@ jobs:
    
 
       - name: start emulator
-        run: /usr/local/lib/android/sdk/emulator/emulator @pixel_9.0
+        run: /usr/local/lib/android/sdk/tools/emulator @pixel_9.0
 
         
         
