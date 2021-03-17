@@ -10,10 +10,14 @@ jobs:
       
       - run: yes | /Users/runner/Library/Android/sdk/tools/bin/sdkmanager --licenses &
       
-      - name: List avd
+      - name: Download emu
         run: |
           cd /Users/runner/Library/Android/sdk/tools/bin
           ./sdkmanager 'system-images;android-28;google_apis;x86'
           echo "no" | ./avdmanager --verbose create avd --force --name "pixel_9.0" --device "pixel" --package "system-images;android-28;google_apis;x86" --tag "google_apis" --abi "x86"
-          cd ..
-          ./emulator -list-avds
+          
+      - name: list avd
+        run: emulator -list-avds
+        
+      - name: list 2
+        run: /Users/runner/Library/Android/sdk/tools/emulator -list-avds
