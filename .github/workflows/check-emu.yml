@@ -4,13 +4,20 @@ jobs:
   Android:
     runs-on: macos-10.15
     steps:
-      - run: ls /Users/runner/Library/Android/sdk/tools
-      - run: ls /Users/runner/Library/Android/sdk/tools/bin/sdkmanager
-      - run: /Users/runner/Library/Android/sdk/tools/bin/sdkmanager --list
-      
-      - run: yes | /Users/runner/Library/Android/sdk/tools/bin/sdkmanager --licenses &
+    
+      - name: Cache emulator
+        uses: actions/cache@v2
+        id: emulator
+        with:
+          path: $ANDROID_SDK_HOME/avd
+          key: ${{ runner.os }}-pixel_9.0
+          
+      - name: Accept licenses
+        if: steps.emulator.outputs.cache-hit != 'true'
+        run: yes | /Users/runner/Library/Android/sdk/tools/bin/sdkmanager --licenses &
       
       - name: Download emu
+        if: steps.emulator.outputs.cache-hit != 'true'
         run: |
           cd /Users/runner/Library/Android/sdk/tools/bin
           ./sdkmanager 'system-images;android-25;google_apis;x86'
