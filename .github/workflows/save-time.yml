@@ -11,12 +11,15 @@ jobs:
           
       - name: Nuget restore
         run: nuget restore App1/App1.sln
+      
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.2
     
       - name: Build .Apk
-        run: MSBuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release /verbosity:normal
+        run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release /verbosity:normal
 
       - name: Build UItest
-        run: MSBuild App1/UItest/UItest.csproj /p:Configuration=Release
+        run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
         
       - name: Cache .Apk and UItest binaries
         uses: actions/cache@v2
