@@ -126,22 +126,14 @@ jobs:
       - name: Build iOS bundle
         run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Debug /p:Platform=iPhoneSimulator /verbosity:normal /t:Rebuild
       
-      - name: check dir
-        run: |
-          ls ./App1/App1/App1.iOS/bin/iPhoneSimulator/Debug/App1.iOS.app
-      
-      - name: Simulator
+      - name: Launch simulator
+        env:
+          simId: xcrun simctl list | grep "iPhone 8" | awk -F"[()]" '{print $2}' | grep -m 1 -v '\.'
         run: |
           xcrun simctl list
-          xcrun simctl boot F0EDD684-301D-4C73-9E92-8E6EE95AFFE5
-          xcrun simctl install F0EDD684-301D-4C73-9E92-8E6EE95AFFE5 ./App1/App1/App1.iOS/bin/iPhoneSimulator/Debug/App1.iOS.app
-          xcrun simctl launch F0EDD684-301D-4C73-9E92-8E6EE95AFFE5 com.companyname.App1
-          
-      - name: Install mono cecil
-        run: mono ${{ env.NUGET_EXE }} install Mono.Cecil -Version 0.9.6.0
-        
-      - name: Install mono cecil
-        run: mono ${{ env.NUGET_EXE }} install NUnit3TestAdapter 
+          xcrun simctl boot simId
+          xcrun simctl install simId ./App1/App1/App1.iOS/bin/iPhoneSimulator/Debug/App1.iOS.app
+          xcrun simctl launch simId com.companyname.App1
         
       - name: Build UItest
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
