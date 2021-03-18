@@ -65,7 +65,7 @@ jobs:
         
       
       - name: Download KVM
-        run: sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils ia32-libs-multiarch
+        run: sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
 
       - name: Accel check
         run: /usr/local/lib/android/sdk/emulator/emulator -accel-check
