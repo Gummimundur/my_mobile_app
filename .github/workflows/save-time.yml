@@ -70,8 +70,7 @@ jobs:
       - name: Download NUnit-Console
         run: mono nuget.exe install NUnit.Console
         
-      - name: which nunit
-        run: which NUnit.Console
+      - run: /usr/bin/mono
         
       - name: Run UItest
         run: |
