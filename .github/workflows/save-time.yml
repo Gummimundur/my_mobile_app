@@ -28,6 +28,12 @@ jobs:
             ./binaries
           key: ${{ github.sha }}-${{ github.run_id }}
           
+      - name: Make binaries
+        run: |
+          mkdir binaries
+          mv App1/UItest/bin/Release/UItest.dll binaries
+          mv App1/App1/App1.Android/bin/Release/com.companyname.apk binaries
+          
   Android:
     runs-on: ubuntu-18.04
     needs: Build
@@ -48,10 +54,22 @@ jobs:
           ./sdkmanager 'system-images;android-29;default;x86'
           ./sdkmanager "emulator"
           echo "no" | ./avdmanager create avd -n emulator --package "system-images;android-29;default;x86" --tag default
-          cd ..
-          cd ..
-          emulator/emulator -accel-check
+     
+      - name: list avd
+        run: emulator -list-avds
+        
+      - name: Start emulator
+        run: |
+          /Users/runner/Library/Android/sdk/platform-tools/adb start-server
+          /Users/runner/Library/Android/sdk/emulator/emulator @emulator -no-snapshot-save -noaudio -no-boot-anim &
           
-          
+      - name: Download NUnit-Console
+        run: mono nuget.exe install NUnit.Console
+        
+      - name: Run UItest
+        run: |
+          /usr/local/lib/android/sdk/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
+          /usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell input keyevent 82
+          mono nuget.exe binaries/UItest/bin/Release/UItest.dll --where "test =~ Android"
           
         
