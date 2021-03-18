@@ -56,7 +56,7 @@ jobs:
           echo "no" | ./avdmanager create avd -n emulator --package "system-images;android-29;default;x86" --tag default
      
       - name: list avd
-        run: emulator -list-avds
+        run: /usr/local/lib/android/sdk/emulator/emulator -list-avds
         
       - name: Start emulator
         run: |
