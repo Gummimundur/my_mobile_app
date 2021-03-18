@@ -23,8 +23,8 @@ jobs:
       - name: Download emu
         run: |
           cd /Users/runner/Library/Android/sdk/tools/bin
-          ./sdkmanager 'system-images;android-30;default;x86'
-          echo "no" | ./avdmanager --verbose create avd create avd -n emulator --package "system-images;android-30;default;x86" --tag default
+          ./sdkmanager 'system-images;android-29;default;x86'
+          echo "no" | ./avdmanager --verbose create avd create avd -n emulator --package "system-images;android-29;default;x86" --tag default
           cd ..
           cd ..
           emulator/emulator -accel-check
