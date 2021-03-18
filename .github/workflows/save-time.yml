@@ -63,8 +63,20 @@ jobs:
           /usr/local/lib/android/sdk/platform-tools/adb start-server
           /usr/local/lib/android/sdk/emulator/emulator @emulator -no-snapshot-save -noaudio -no-boot-anim &
           
+      - name: Accel check
+        run: /usr/local/lib/android/sdk/emulator/emulator -accel-check
+      
+      - name: Download KVM
+        run: sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils ia32-libs-multiarch
+
+      - name: Accel check 2
+        run: /usr/local/lib/android/sdk/emulator/emulator -accel-check
+      
+      - name: Download nuget.exe
+        run: wget https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+          
       - name: Download NUnit-Console
-        run: mono nuget install NUnit.Console
+        run: mono nuget.exe install NUnit.Console
         
       - name: Run UItest
         run: |
