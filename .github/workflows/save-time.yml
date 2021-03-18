@@ -32,7 +32,7 @@ jobs:
         run: |
           mkdir binaries
           mv App1/UItest/bin/Release/UItest.dll binaries
-          mv App1/App1/App1.Android/bin/Release/com.companyname.apk binaries
+          mv App1/App1/App1.Android/bin/Release/com.companyname.app1.apk binaries
           
   Android:
     runs-on: ubuntu-18.04
