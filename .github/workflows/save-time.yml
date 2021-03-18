@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: find mono
-        run: which mono
+        run: ls  /usr/bin/mono
       
       - name: Accept licenses
         run: yes | /usr/local/lib/android/sdk/tools/bin/sdkmanager --licenses &
