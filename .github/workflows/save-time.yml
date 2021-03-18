@@ -13,10 +13,10 @@ jobs:
         run: nuget restore App1/App1.sln
     
       - name: Build .Apk
-        run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release /verbosity:normal
+        run: MSBuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release /verbosity:normal
 
       - name: Build UItest
-        run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
+        run: MSBuild App1/UItest/UItest.csproj /p:Configuration=Release
         
       - name: Cache .Apk and UItest binaries
         uses: actions/cache@v2
