@@ -65,7 +65,10 @@ jobs:
         
       
       - name: Download KVM
-        run: sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
+        run: |
+          sudo apt-get install cpu-checker
+          egrep -c '(vmx|svm)' /proc/cpuinfo
+          kvm-ok
 
       - name: Accel check
         run: /usr/local/lib/android/sdk/emulator/emulator -accel-check
