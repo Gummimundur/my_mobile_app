@@ -27,16 +27,17 @@ jobs:
           
   Android:
     runs-on: ubuntu-18.04
+    needs: Build
     steps:
+      - name: Accept licenses
+        run: yes | /usr/local/lib/android/sdk/tools/bin/sdkmanager --licenses &
+        
       - name: Restore binaries
         uses: actions/cache@v2
         with:
           path: |
             ./binaries
           key: ${{ github.sha}}-${{ github.run_id }}
-          
-      - name: Accept licenses
-        run: yes | usr/local/lib/android/sdk/tools/bin/sdkmanager --licenses &
           
       - name: Download emulator
         run: |
