@@ -12,3 +12,42 @@ jobs:
       - name: Nuget restore
         run: nuget restore App1/App1.sln
     
+      - name: Build .Apk
+        run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release /verbosity:normal
+
+      - name: Build UItest
+        run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
+        
+      - name: Cache .Apk and UItest binaries
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./binaries
+          key: ${{ github.sha }}-${{ github.run_id }}
+          
+  Android:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Restore binaries
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./binaries
+          key: ${{ github.sha}}-${{ github.run_id }}
+          
+      - name: Accept licenses
+        run: yes | usr/local/lib/android/sdk/tools/bin/sdkmanager --licenses &
+          
+      - name: Download emulator
+        run: |
+          cd /usr/local/lib/android/sdk/tools/bin
+          ./sdkmanager 'system-images;android-29;default;x86'
+          ./sdkmanager "emulator"
+          echo "no" | ./avdmanager create avd -n emulator --package "system-images;android-29;default;x86" --tag default
+          cd ..
+          cd ..
+          emulator/emulator -accel-check
+          
+          
+          
+        
