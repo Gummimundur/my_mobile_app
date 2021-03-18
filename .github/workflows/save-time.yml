@@ -1,0 +1,14 @@
+name: Continuous integration with UI tests
+on: push
+jobs:
+  Build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: improved
+          
+      - name: Nuget restore
+        run: nuget restore App1/App1.sln
+    
