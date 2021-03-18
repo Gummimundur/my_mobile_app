@@ -123,10 +123,11 @@ jobs:
       - name: Build iOS bundle
         run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Debug /p:Platform=iPhoneSimulator /verbosity:normal /t:Rebuild
       
+      - run: echo "simId=$(xcrun simctl list | grep "iPhone 8" | awk -F"[()]" '{print $2}' | grep -m 1 -v '\.')" >> $GITHUB_ENV
+      
       - name: Launch simulator
         run: |
-          echo "simId=$(xcrun simctl list | grep "iPhone 8" | awk -F"[()]" '{print $2}' | grep -m 1 -v '\.')" >> $GITHUB_ENV
-          xcrun simctl list
+          echo ${{ env.simId }}
           xcrun simctl boot ${{ env.simId }}
           xcrun simctl install ${{ env.simId }} ./App1/App1/App1.iOS/bin/iPhoneSimulator/Debug/App1.iOS.app
           xcrun simctl launch ${{ env.simId }} com.companyname.App1
