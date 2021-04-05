@@ -1,0 +1,145 @@
+name: Improved
+on: push
+env:
+  NUNIT_CONSOLE_VERSION: 3.12.0
+  NUGET_EXE: /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/nuget/nuget.exe
+  NUNIT_CONSOLE: /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe
+jobs: 
+  Android:
+    runs-on: macos-10.15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2  
+        with:
+            ref: improved
+            
+      - name: Cache ./nuget/packages
+        uses: actions/cache@v2
+        with:
+          path: | 
+            ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/**/*.csproj') }}-${{ hashFiles('**/**/**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget
+            
+      - name: Nuget restore
+        run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln
+        
+      - name: Cache NUnit.Console
+        id: nunit-console
+        uses: actions/cache@v2
+        with:
+          path: ./NUnit.ConsoleRunner.${{ env.NUNIT_CONSOLE_VERSION }}
+          key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
+          
+      - name: Download NUnit-Console
+        if: steps.nunit-console.outputs.cache-hit != 'true'
+        run: mono ${{ env.NUGET_EXE }} install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
+        
+      - name: Build .Apk
+        run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release /verbosity:normal
+
+      - name: Build UItest
+        run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
+        
+      - name: Cache Android sdk
+        id: sdk-android
+        uses: actions/cache@v2
+        with:
+          path: /Users/runner/android-sdk
+          key: ${{ runner.os }}-android-sdk
+          restore-keys: |
+            ${{ runner.os }}-android-sdk
+            
+            
+      - name: Set android env variables
+        if: steps.sdk-android.outputs.cache-hit == 'true'
+        run: |
+          echo "ANDROID_HOME=/Users/runner/android-sdk" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=Users/runner/android-sdk" >> $GITHUB_ENV
+          echo "ANDROID_SDK_HOME=Users/runner/android-sdk/sdk_home" >> $GITHUB_ENV
+
+      - name: Install android sdk 
+        if: steps.sdk-android.outputs.cache-hit != 'true'
+        uses: malinskiy/action-android/install-sdk@release/0.1.1
+       
+      - name: Install android tools
+        if: steps.sdk-android.outputs.cache-hit != 'true'
+        run: |
+          sdkmanager "platform-tools"
+          sdkmanager "build-tools;30.0.2"
+        
+      - name: Android UItest
+        uses: malinskiy/action-android/emulator-run-cmd@release/0.1.1
+        with:
+            cmd: mono ${{ env.NUNIT_CONSOLE }} App1/UItest/bin/Release/UItest.dll --where "test =~ Android"
+            api: 29
+            tag: default
+            abi: x86   
+            verbose: false
+      
+      - uses: actions/upload-artifact@v2.2.1
+        with:
+          name: Android-screenshots
+          path: App1/UItest/bin/Release/screenshots
+        
+   
+  iOS:
+    runs-on: macos-10.15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2  
+        with:
+            ref: improved
+        
+      - name: Cache ./nuget/packages
+        uses: actions/cache@v2
+        with:
+          path: | 
+            ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/**/*.csproj') }}-${{ hashFiles('**/**/**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+            
+      - name: Nuget restore
+        run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln
+        
+      - name: Setup .NET Core 3.1
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+        
+        
+      - name: Cache NUnit.Console
+        id: nunit-console
+        uses: actions/cache@v2
+        with:
+          path: ./NUnit.ConsoleRunner.${{ env.NUNIT_CONSOLE_VERSION }}
+          key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
+          
+      - name: Download NUnit-Console
+        if: steps.nunit-console.outputs.cache-hit != 'true'
+        run: mono ${{ env.NUGET_EXE }} install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
+        
+      - name: Build iOS bundle
+        run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Debug /p:Platform=iPhoneSimulator /verbosity:normal /t:Rebuild
+      
+      - run: echo "simId=$(xcrun simctl list | grep "iPhone 8" | awk -F"[()]" '{print $2}' | grep -m 1 -v '\.')" >> $GITHUB_ENV
+      
+      - name: Launch simulator
+        run: |
+          echo ${{ env.simId }}
+          xcrun simctl boot ${{ env.simId }}
+          xcrun simctl install ${{ env.simId }} ./App1/App1/App1.iOS/bin/iPhoneSimulator/Debug/App1.iOS.app
+          xcrun simctl launch ${{ env.simId }} com.companyname.App1
+        
+      - name: Build UItest
+        run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
+      
+      - name: UITest iOS
+        run: mono ${{ env.NUNIT_CONSOLE }} App1/UItest/bin/Release/UItest.dll --where "test =~ iOS"
+
+      - uses: actions/upload-artifact@v2.2.1
+        with:
+          name: iOS-screenshots
+          path: App1/UItest/bin/Release/screenshots
