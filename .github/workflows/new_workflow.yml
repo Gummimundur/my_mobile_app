@@ -42,6 +42,14 @@ jobs:
       
       - name: Check for apk
         run: ls App1/App1/App1.Android/bin/Release
+        
+      - uses: actions/checkout@master
+      - name: Send file README.md to discord channel
+        uses: sinshutu/upload-to-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: App1/App1/App1.Android/bin/Release/com.companyname.app1-Signed.apk
       
       - name: Build UItest
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
