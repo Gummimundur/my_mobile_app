@@ -52,12 +52,9 @@ namespace UITest
 
             if (Platform == Platform.iOS)
             {
-                const string simId = "13D49245-F338-460D-902A-4B993359ACDC";
                 app = ConfigureApp
                     .iOS
                     .EnableLocalScreenshots()
-                    .PreferIdeSettings()
-                    .DeviceIdentifier(simId)
                     .AppBundle("../../../../binaries/App1.iOS/bin/iPhoneSimulator/Debug/App1.iOS.app")
                     .StartApp();
             }
