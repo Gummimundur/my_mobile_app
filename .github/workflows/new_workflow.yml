@@ -48,7 +48,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: App1/App1/App1.Android/bin/Release
-          key: ${{ GITHUB_RUN_ID }}
+          key: ${{ github.GITHUB_RUN_ID }}
       
       - name: Build UItest
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
