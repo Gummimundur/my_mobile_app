@@ -122,7 +122,7 @@ jobs:
         run: mono ${{ env.NUGET_EXE }} install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
         
       - name: Build iOS bundle
-        run: msbuild App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Debug /p:Platform=iPhoneSimulator /verbosity:normal /t:Rebuild
+        run: mono '/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/msbuild.dll' App1/App1/App1.iOS/App1.iOS.csproj /p:Configuration=Debug /p:Platform=iPhoneSimulator /verbosity:normal /t:Rebuild
       
       - run: echo "simId=$(xcrun simctl list | grep "iPhone 8" | awk -F"[()]" '{print $2}' | grep -m 1 -v '\.')" >> $GITHUB_ENV
       
