@@ -48,7 +48,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: App1/App1/App1.Android/bin/Release
-          key: ${{ github.GITHUB_RUN_ID }}
+          key: ${{ github.GITHUB_RUN_ID }}-apk
       
       - name: Build UItest
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
@@ -102,12 +102,13 @@ jobs:
       uses: actions/checkout@v2  
       with:
           ref: improved      
+          
     - name: Cache apk
       id: signed-apk
       uses: actions/cache@v2
       with:
         path: App1/App1/App1.Android/bin/Release
-        key: ${{ github.GITHUB_RUN_ID }}
+        key: ${{ github.GITHUB_RUN_ID }}-apk
         
     - name: Check after cache
       run: ls App1/App1/App1.Android/bin/Release
