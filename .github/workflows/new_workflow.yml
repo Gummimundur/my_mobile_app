@@ -92,7 +92,7 @@ jobs:
       - uses: actions/upload-artifact@v2.2.1
         with:
           name: Android-screenshots
-          path: App1/UItest/bin/Release/screenshots
+          path: App1/App1/App1.Android/bin/Release/com.companyname.app1-Signed.apk
 
   Deploy-android:
     runs-on: ubuntu-latest
