@@ -38,7 +38,7 @@ jobs:
         run: mono ${{ env.NUGET_EXE }} install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
         
       - name: Build .Apk
-        run: msbuild App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release /verbosity:normal
+        run: mono '/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/msbuild.dll' /p:Configuration=Release /p:Platform=PackageForAndroid  App1/App1/App1.Android/App1.Android.csproj
 
       - name: Build UItest
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
