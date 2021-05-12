@@ -39,6 +39,10 @@ jobs:
         
       - name: Build .Apk
         run: mono '/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/msbuild.dll' App1/App1/App1.Android/App1.Android.csproj -target:SignAndroidPackage /p:Configuration=Release /verbosity:normal
+      
+      - name: Check for apk
+        run: ls App1/App1/App1.Android/bin/Release
+      
       - name: Build UItest
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
         
