@@ -43,13 +43,12 @@ jobs:
       - name: Check for apk
         run: ls App1/App1/App1.Android/bin/Release
         
-      - uses: actions/checkout@master
-      - name: Send file README.md to discord channel
-        uses: sinshutu/upload-to-discord@master
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Cache apk
+        id: signed-apk
+        uses: actions/cache@v2
         with:
-          args: App1/App1/App1.Android/bin/Release/com.companyname.app1-Signed.apk
+          path: App1/App1/App1.Android/bin/Release
+          key: ${{ GITHUB_RUN_ID }}
       
       - name: Build UItest
         run: msbuild App1/UItest/UItest.csproj /p:Configuration=Release
@@ -94,8 +93,33 @@ jobs:
         with:
           name: Android-screenshots
           path: App1/UItest/bin/Release/screenshots
+
+  Deploy-android:
+    runs-on: ubuntu-latest
+    needs: Android
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2  
+      with:
+          ref: improved      
+    - name: Cache apk
+      id: signed-apk
+      uses: actions/cache@v2
+      with:
+        path: App1/App1/App1.Android/bin/Release
+        key: ${{ GITHUB_RUN_ID }}
         
-   
+    - name: Check after cache
+      run: ls App1/App1/App1.Android/bin/Release
+      
+    - uses: actions/checkout@master
+    - name: Send file README.md to discord channel
+      uses: sinshutu/upload-to-discord@master
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      with:
+        args: App1/App1/App1.Android/bin/Release/com.companyname.app1-Signed.apk
+        
   iOS:
     runs-on: macos-10.15
     steps:
