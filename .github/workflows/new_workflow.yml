@@ -22,10 +22,8 @@ jobs:
       - name: Nuget restore
         run: nuget restore App1/App1.sln
         
-      - uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '3.1.x' # SDK Version to use; x will use the latest version of the 3.1 channel
-      - run: |
+      - name: Run test
+        run: |
           dotnet build App1/XUnitTestProject/XUnitTestProject.csproj
           dotnet test App1/XUnitTestProject/XUnitTestProject.csproj
         
