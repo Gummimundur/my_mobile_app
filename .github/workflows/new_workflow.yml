@@ -6,25 +6,21 @@ env:
   NUNIT_CONSOLE: /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe
 jobs: 
   Android:
-    runs-on: macos-10.15
+    runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2  
         with:
             ref: improved
-            
-            
-      - name: Cache ./nuget/packages
-        uses: actions/cache@v2
-        with:
-          path: | 
-            ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/**/*.csproj') }}-${{ hashFiles('**/**/**/*.csproj') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget
+        
+          
+
+ 
+
+
             
       - name: Nuget restore
-        run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln
+        run: nuget restore App1/App1.sln
         
       - uses: actions/setup-dotnet@v1
         with:
