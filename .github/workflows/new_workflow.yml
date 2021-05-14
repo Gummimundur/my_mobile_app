@@ -26,19 +26,10 @@ jobs:
       - name: Nuget restore
         run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln
         
-      - name: Cache NUnit.Console
-        id: nunit-console
-        uses: actions/cache@v2
+      - uses: actions/setup-dotnet@v1
         with:
-          path: ./NUnit.ConsoleRunner.${{ env.NUNIT_CONSOLE_VERSION }}
-          key: nunit-console-${{ env.NUNIT_CONSOLE_VERSION }}
-          
-      - name: Download NUnit-Console
-        if: steps.nunit-console.outputs.cache-hit != 'true'
-        run: mono ${{ env.NUGET_EXE }} install NUnit.Console -Version ${{ env.NUNIT_CONSOLE_VERSION }}
+          dotnet-version: '3.1.x' # SDK Version to use; x will use the latest version of the 3.1 channel
+      - run: |
+          dotnet build App1/XUnitTestProject/XUnitTestProject.csproj
+          dotnet test App1/XUnitTestProject/XUnitTestProject.csproj
         
-      - name: Build unit test
-        run: msbuild App1/XUnitTestProject/XUnitTestProject.csproj
-        
-      - name: Run unit test
-        run: mono ${{ env.NUNIT_CONSOLE }} App1/XUnitTestProject/bin/Release/XUnitTestProject.dll
