@@ -24,7 +24,7 @@ jobs:
             ${{ runner.os }}-nuget
             
       - name: Nuget restore
-        run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln /:p:Configuration=Release
+        run: mono ${{ env.NUGET_EXE }} restore App1/App1.sln
         
       - name: Cache NUnit.Console
         id: nunit-console
