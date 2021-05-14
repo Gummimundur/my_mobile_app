@@ -6,24 +6,17 @@ env:
   NUNIT_CONSOLE: /Users/runner/work/my_mobile_app/my_mobile_app/NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe
 jobs: 
   Android:
-    runs-on: windows-latest
+    runs-on: macos-10.15
     steps:
       - name: Checkout
         uses: actions/checkout@v2  
         with:
             ref: improved
+      
         
-          
-
- 
-
-
-            
-      - name: Nuget restore
-        run: nuget restore App1/App1.sln
-        
-      - name: Run test
-        run: |
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.x' # SDK Version to use; x will use the latest version of the 3.1 channel
+      - run: |
           dotnet build App1/XUnitTestProject/XUnitTestProject.csproj
           dotnet test App1/XUnitTestProject/XUnitTestProject.csproj
-        
